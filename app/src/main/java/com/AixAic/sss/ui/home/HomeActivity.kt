@@ -1,4 +1,4 @@
-package com.AixAic.sss.ui.login
+package com.AixAic.sss.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
