@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             val userPassword = userPasswordEdit.text.toString()
             if (userName == "1777000074" && userPassword == "123456"){
                 if (rememberPass.isChecked) { //是否选中记住密码
-                    prefs.edit {
+                    prefs.edit() {
                         putBoolean("remember_password", true)
                         putString("userName", userName)
                         putString("userPassword", userPassword)
