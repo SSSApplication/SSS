@@ -8,6 +8,7 @@ import androidx.core.content.edit
 import com.AixAic.sss.MainActivity
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication.Companion.context
+import com.AixAic.sss.ui.BottomActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -36,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
                         putString("userPassword", userPassword)
                     }
                 }
-                val intent = Intent(context, MainActivity::class.java)
+                val intent = Intent(context, BottomActivity::class.java)
                 startActivity(intent)
             }
         }
