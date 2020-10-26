@@ -17,13 +17,13 @@
             android:layout_weight="7"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/workTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="第一次作业"/>
+                android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/workOwner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发布人：xxx"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <Button
