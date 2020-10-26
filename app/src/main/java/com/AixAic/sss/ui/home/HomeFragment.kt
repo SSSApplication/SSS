@@ -49,8 +49,9 @@ class HomeFragment : Fragment() {
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(30)))
                     .into(holder.imageView)
             }
-        }).addBannerLifecycleObserver(this).setIndicator(this))
+        }).addBannerLifecycleObserver(this).setIndicator(CircleIndicator(SSSApplication.context))
     }
 
 
 }
+
