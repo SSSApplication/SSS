@@ -1,9 +1,11 @@
 package com.AixAic.sss.logic.network
 
+import android.util.Log
 import com.AixAic.sss.logic.model.LoginData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.RuntimeException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -24,7 +26,8 @@ object SSSNetwork {
                     if (body != null) continuation.resume(body) //服务器返回成功
                     else continuation.resumeWithException(
                         //服务器返回成功，但是值为空
-                        RuntimeException("response body is null"))
+                        RuntimeException("response body is null")
+                    )
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {

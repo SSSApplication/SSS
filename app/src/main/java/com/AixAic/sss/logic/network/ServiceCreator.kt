@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //Retrofit构造器
 object ServiceCreator {
-    private const val BASE_URL = "https://www.test.com/"
+    private const val BASE_URL = "http://10.0.2.2/"
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL) //所有请求的根目录

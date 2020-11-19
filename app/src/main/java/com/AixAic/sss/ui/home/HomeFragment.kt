@@ -1,6 +1,7 @@
 package com.AixAic.sss.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
+import com.AixAic.sss.logic.Repository
+import com.AixAic.sss.logic.model.LoginData
+import com.AixAic.sss.logic.model.User
+import com.AixAic.sss.logic.model.UserResponse
+import com.AixAic.sss.logic.network.ServiceCreator
+import com.AixAic.sss.logic.network.UserService
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -18,6 +25,16 @@ import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class HomeFragment : Fragment() {
@@ -50,7 +67,22 @@ class HomeFragment : Fragment() {
                     .into(holder.imageView)
             }
         }).addBannerLifecycleObserver(this).setIndicator(CircleIndicator(SSSApplication.context))
+
+        test.setOnClickListener {
+
+
+            val loginData = LoginData("1777000074", "123456")
+            val job = Job()
+            val scope = CoroutineScope(job)
+            scope.launch {
+                Repository.login1(loginData)
+            }
+            job.cancel()
+
+
+        }
     }
+
 
 
 }
