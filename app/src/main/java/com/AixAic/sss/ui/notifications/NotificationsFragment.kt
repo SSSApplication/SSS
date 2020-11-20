@@ -9,12 +9,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.Repository
+import com.AixAic.sss.logic.model.Mine
 import com.AixAic.sss.ui.login.LoginActivity
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class NotificationsFragment : Fragment() {
+
+    private val mineList = ArrayList<Mine>()
 
     val viewModel by lazy { ViewModelProviders.of(this).get(NotificationsViewModel::class.java) }
 
@@ -40,10 +45,23 @@ class NotificationsFragment : Fragment() {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        initMine()
+        val layoutManager = LinearLayoutManager(context)
+        recycleView.layoutManager = layoutManager
+        val adapter = MineAdapter(mineList)
+        recycleView.adapter = adapter
+
     }
 
     fun refreshWeather() {
         viewModel.refreshMyself(viewModel.userName, viewModel.userPassword)
 //        swipeRefresh.isRefreshing = true
+    }
+
+    private fun initMine() {
+        mineList.add(Mine(R.drawable.ic_homework, "我的作业"))
+        mineList.add(Mine(R.drawable.ic_mission, "待办事项"))
+        mineList.add(Mine(R.drawable.ic_setting, "设置"))
     }
 }
