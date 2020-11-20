@@ -2,6 +2,7 @@ package com.AixAic.sss.logic
 
 import android.util.Log
 import androidx.lifecycle.liveData
+import com.AixAic.sss.logic.dao.UserDAO
 import com.AixAic.sss.logic.model.LoginData
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.logic.model.UserResponse
@@ -55,4 +56,8 @@ object Repository {
         }
         emit(result)
     }
+//    用户操作封装
+    fun saveUser(user: User) = UserDAO.saveUser(user)
+    fun getUser() = UserDAO.getUser()
+    fun isUserSaved() = UserDAO.isUserSaved()
 }

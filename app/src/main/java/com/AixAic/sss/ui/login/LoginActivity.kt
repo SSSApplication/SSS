@@ -12,6 +12,7 @@ import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
 import com.AixAic.sss.SSSApplication.Companion.context
 import com.AixAic.sss.logic.Repository
+import com.AixAic.sss.logic.dao.UserDAO
 import com.AixAic.sss.logic.model.LoginData
 import com.AixAic.sss.logic.model.UserResponse
 import com.AixAic.sss.logic.network.ServiceCreator
@@ -46,24 +47,19 @@ class LoginActivity : AppCompatActivity() {
             userService.login(loginData).enqueue(object : Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                     val userResponse = response.body()
-
                     if (userResponse != null && userResponse.status.equals("ok")){
                         val user = userResponse.user
                         Log.d("Login", userResponse.status)
                         Log.d("Login", user.name)
                         if (rememberPass.isChecked) { //是否选中记住密码
                             prefs.edit() {
-                                putInt("id", user.id)
-                                putString("name", user.name)
-                                putString("sno", user.sno)
-                                putString("password", user.password)
-                                putString("school", user.school)
-                                putString("phone", user.phone)
                                 putBoolean("remember_password", true)
                                 putString("userName", userName)
                                 putString("userPassword", userPassword)
                             }
                         }
+//                        存储用户
+                        Repository.saveUser(user)
                         val intent = Intent(context, BottomActivity::class.java)
                         startActivity(intent)
                     }else

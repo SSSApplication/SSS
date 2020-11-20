@@ -21,6 +21,7 @@ object UserDAO {
         val placeJson = sharedPreferences().getString("user", "")
         return Gson().fromJson(placeJson, User::class.java)
     }
+
     //用户是否存在
     fun isUserSaved() = sharedPreferences().contains("user")
     //获取SP
