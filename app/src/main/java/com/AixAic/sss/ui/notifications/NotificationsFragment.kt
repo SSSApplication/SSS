@@ -14,7 +14,7 @@ import com.AixAic.sss.R
 import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Mine
 import com.AixAic.sss.ui.login.LoginActivity
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_notifications.*
 
 
 class NotificationsFragment : Fragment() {
@@ -38,19 +38,19 @@ class NotificationsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        if (Repository.isUserSaved()){
-
-        }else{
-            //如果用户未登录 则返回登录界面
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-        }
+//        if (Repository.isUserSaved()){
+//
+//        }else{
+//            //如果用户未登录 则返回登录界面
+//            val intent = Intent(context, LoginActivity::class.java)
+//            startActivity(intent)
+//        }
 
         initMine()
-        val layoutManager = LinearLayoutManager(context)
-        recycleView.layoutManager = layoutManager
-        val adapter = MineAdapter(mineList)
-        recycleView.adapter = adapter
+        val layoutManager = LinearLayoutManager(activity)
+        mineRecycler.layoutManager = layoutManager
+        val adapter = MineAdapter(this, mineList)
+        mineRecycler.adapter = adapter
 
     }
 
