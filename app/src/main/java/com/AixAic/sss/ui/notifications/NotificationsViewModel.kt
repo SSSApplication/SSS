@@ -19,7 +19,7 @@ class NotificationsViewModel : ViewModel() {
     }
 
     //外部调用的接口
-    fun refreshMyself(userName: String, userPassword: String){
+    fun     refreshMyself(userName: String, userPassword: String){
         userLiveData.value = LoginData(userName, userPassword)
     }
 
