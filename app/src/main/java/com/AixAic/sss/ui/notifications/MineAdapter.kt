@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.model.Mine
 
-class MineAdapter(private val fragment: NotificationsFragment,val mineList: List<Mine>) : RecyclerView.Adapter<MineAdapter.ViewHolder>(){
+class MineAdapter(private val fragment: NotificationsFragment, val mineList: List<Mine>) : RecyclerView.Adapter<MineAdapter.ViewHolder>(){
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val mineIco: ImageView = view.findViewById(R.id.mine_ico)
         val mineText: TextView = view.findViewById(R.id.mine_text)
