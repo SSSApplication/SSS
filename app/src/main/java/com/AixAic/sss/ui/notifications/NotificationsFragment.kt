@@ -78,9 +78,10 @@ class NotificationsFragment : Fragment() {
 
     fun showUserInfo(user: User){
         LogUtil.d("Login", "已登录")
-        userName.setText(user.name)
-        userSno.setText(user.sno)
-        school.setText(user.school)
+        userName.text = user.name
+        userSno.text = user.sno
+        school.text = user.school
+        organization.text = user.organizationsList[0].organization.name
         if (viewModel.userName.isEmpty()) viewModel.userName = user.sno
         if (viewModel.userPassword.isEmpty()) viewModel.userPassword = user.password
     }
