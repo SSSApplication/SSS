@@ -17,6 +17,7 @@ import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Mine
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.ui.login.LoginActivity
+import com.AixAic.sss.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 
@@ -77,7 +78,7 @@ class NotificationsFragment : Fragment() {
     }
 
     fun showUserInfo(user: User){
-        Log.d("Login", "已登录")
+        LogUtil.d("Login", "已登录")
         userName.setText(user.name)
         userSno.setText(user.sno)
         school.setText(user.school)

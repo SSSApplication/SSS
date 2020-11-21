@@ -18,6 +18,7 @@ import com.AixAic.sss.logic.model.UserResponse
 import com.AixAic.sss.logic.network.ServiceCreator
 import com.AixAic.sss.logic.network.UserService
 import com.AixAic.sss.ui.BottomActivity
+import com.AixAic.sss.util.LogUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,8 +50,8 @@ class LoginActivity : AppCompatActivity() {
                     val userResponse = response.body()
                     if (userResponse != null && userResponse.status.equals("ok")){
                         val user = userResponse.user
-                        Log.d("Login", userResponse.status)
-                        Log.d("Login", user.name)
+                        LogUtil.d("Login", userResponse.status)
+                        LogUtil.d("Login", user.name)
                         if (rememberPass.isChecked) { //是否选中记住密码
                             prefs.edit() {
                                 putBoolean("remember_password", true)

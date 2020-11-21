@@ -75,7 +75,7 @@ class HomeFragment : Fragment() {
             val job = Job()
             val scope = CoroutineScope(job)
             scope.launch {
-                Repository.login1(loginData)
+                Repository.login(loginData)
             }
             job.cancel()
 
