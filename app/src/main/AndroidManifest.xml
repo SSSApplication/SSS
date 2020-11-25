@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".ui.task.WorkPublishActivity"/>
         <provider
             android:authorities="com.AixAic.sss.fileprovider"
             android:name="androidx.core.content.FileProvider"

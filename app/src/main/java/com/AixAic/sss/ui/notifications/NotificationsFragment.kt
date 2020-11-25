@@ -16,6 +16,7 @@ import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Mine
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.ui.login.LoginActivity
+import com.AixAic.sss.ui.task.WorkPublishActivity
 import com.AixAic.sss.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
@@ -69,6 +70,10 @@ class NotificationsFragment : Fragment() {
         val adapter = MineAdapter(this, mineList)
         mineRecycler.adapter = adapter
 
+        headPicture.setOnClickListener{
+            val intent = Intent(context,WorkPublishActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun refreshWeather() {
