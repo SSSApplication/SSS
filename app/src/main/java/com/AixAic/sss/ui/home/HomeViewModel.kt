@@ -10,10 +10,6 @@ import okhttp3.RequestBody
 class HomeViewModel : ViewModel() {
 
     private val uploadLiveData = MutableLiveData<String>()
-
-    val testUploadLiveData = Transformations.switchMap(uploadLiveData){ sfileurl ->
-        Repository.upload(sfileurl)
-    }
     //外部调用的接口
     fun uploadmv(sfileurl: String){
         uploadLiveData.value = sfileurl
@@ -23,7 +19,7 @@ class HomeViewModel : ViewModel() {
     private val uploadnewLiveData = MutableLiveData<RequestBody>()
 
     val testUploadnewLiveData = Transformations.switchMap(uploadnewLiveData){ body ->
-        Repository.uploadnew(body)
+        Repository.upload(body)
     }
     //外部调用的接口
     fun uploadnew(body: RequestBody){

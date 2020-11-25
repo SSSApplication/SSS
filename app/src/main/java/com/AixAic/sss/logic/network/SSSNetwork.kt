@@ -26,8 +26,7 @@ object SSSNetwork {
     //执行请求
     //封装上传文件的网络请求
     private val sfileService = ServiceCreator.create<SfileService>()
-    suspend fun upload(description: RequestBody, file: MultipartBody.Part) = sfileService.upload(description, file).await()
-    suspend fun uploadnew(body: RequestBody) = sfileService.uploadnew(body).await()
+    suspend fun upload(body: RequestBody) = sfileService.upload(body).await()
 
     //协程suspend
     private suspend fun <T> Call<T>.await(): T {
@@ -40,7 +39,7 @@ object SSSNetwork {
                     if (body != null) continuation.resume(body) //服务器返回成功
                     else continuation.resumeWithException(
                         //服务器返回成功，但是值为空
-                        RuntimeException("response body is null")
+                        RuntimeException("response body is null 服务器返回成功，但是值为空")
                     )
                 }
 

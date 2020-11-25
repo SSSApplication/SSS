@@ -2,9 +2,12 @@ package com.AixAic.sss.ui.task
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.AixAic.sss.R
+import com.AixAic.sss.util.LogUtil
 
 class WorkPublishActivity : AppCompatActivity() {
 
@@ -15,16 +18,21 @@ class WorkPublishActivity : AppCompatActivity() {
         val typeList = ArrayList<String>()
         typeList.add("a")
         typeList.add("b")
+        typeList.add("c")
         val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
-        val typeAdapter = ArrayAdapter(this,R.layout.type_spinner,typeList)
+        val typeAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext , typeList)
         typeSpinner.adapter = typeAdapter
+        typeSpinner.setOnItemSelectedListener(spinnerListener())
 
+    }
+    class spinnerListener: AdapterView.OnItemSelectedListener{
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val selected = parent?.getItemAtPosition(position).toString()
+        }
 
-//        val departmentList = ArrayList<String>()
-//        departmentList.add("1")
-//        departmentList.add("2")
-//        val departmentSpinner = findViewById<Spinner>(R.id.departmentSpinner)
-//        val deAdapter = ArrayAdapter(this,R.layout.activity_work_publish,departmentList)
-//        departmentSpinner.adapter = deAdapter
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            LogUtil.d("workPublish", "什么都没点")
+        }
+
     }
 }
