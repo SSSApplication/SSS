@@ -29,6 +29,7 @@ import com.AixAic.sss.logic.model.UserResponse
 import com.AixAic.sss.logic.network.ServiceCreator
 import com.AixAic.sss.logic.network.SfileService
 import com.AixAic.sss.logic.network.UserService
+import com.AixAic.sss.util.FileUtil
 import com.AixAic.sss.util.HttpUtil
 import com.AixAic.sss.util.LogUtil
 import com.bumptech.glide.Glide
@@ -163,8 +164,8 @@ class HomeFragment : Fragment() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     LogUtil.d("上传文件", "${data.data.toString()}")
 
-//                    val file =
-//                    LogUtil.d("上传文件", "${file.totalSpace}")
+                    val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
+                    LogUtil.d("上传文件", "${file.totalSpace}")
                     data.data?.let {uri ->
                         //将图片显示
                         val bitmap = getBitmapFromUri(uri)
