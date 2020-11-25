@@ -40,17 +40,17 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/allSubmitBtn"
+            android:id="@+id/myAllSubmitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全部"/>
         <Button
-            android:id="@+id/noSubmitBtn"
+            android:id="@+id/myNoSubmitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="未提交"/>
         <Button
-            android:id="@+id/submittedBtn"
+            android:id="@+id/mySubmittedBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已提交"/>

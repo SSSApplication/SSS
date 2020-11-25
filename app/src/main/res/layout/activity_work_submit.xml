@@ -51,6 +51,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:paddingLeft="10dp"
             android:src="@drawable/ic_picture"/>
         <TextView
             android:layout_width="0dp"
@@ -78,7 +79,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclePic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"/>
 
     </LinearLayout>
 
@@ -91,6 +93,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:paddingLeft="10dp"
             android:src="@drawable/ic_accessory"/>
         <TextView
             android:layout_width="0dp"
@@ -120,6 +123,7 @@
             android:id="@+id/recycleAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
             />
 
     </LinearLayout>
