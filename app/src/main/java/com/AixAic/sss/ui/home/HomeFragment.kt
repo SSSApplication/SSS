@@ -164,8 +164,25 @@ class HomeFragment : Fragment() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     LogUtil.d("上传文件", "${data.data.toString()}")
 
-                    val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
-                    LogUtil.d("上传文件", "${file.totalSpace}")
+                    val path = FileUtil.uri2path(SSSApplication.context, data.data!!)
+                    val file = File(path)
+                    LogUtil.d("上传文件", "${path}, ${file.totalSpace}")
+                    val body = HttpUtil.generateUploadBody1(file, "photo")
+                    val uploadService = ServiceCreator.create<SfileService>()
+                    uploadService.uploadnew(body).enqueue(object : Callback<SfileResponse> {
+                        override fun onResponse(call: Call<SfileResponse>, response: Response<SfileResponse>) {
+                            val userResponse = response.body()
+                            if (userResponse != null){
+                                LogUtil.d("上传成功", "上传成功")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<SfileResponse>, t: Throwable) {
+                            LogUtil.d("上传成功", "上传成功个鬼")
+                            t.printStackTrace()
+                        }
+                    })
+
                     data.data?.let {uri ->
                         //将图片显示
                         val bitmap = getBitmapFromUri(uri)

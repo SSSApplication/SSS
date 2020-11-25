@@ -24,7 +24,8 @@ object FileUtil {
                     val split = docId.split(":".toRegex()).toTypedArray()
                     val type = split[0]
                     if ("primary".equals(type, ignoreCase = true)) {
-                        path = context.getExternalFilesDir(null)!!.absolutePath + "/" + split[1]
+                        path = "/storage/emulated/0/" + split[1]
+                        LogUtil.d("文件位置", "${context.getExternalFilesDir(null)!!}")
                         return path
                     }
                 } else if (isDownloadsDocument(uri)) {
