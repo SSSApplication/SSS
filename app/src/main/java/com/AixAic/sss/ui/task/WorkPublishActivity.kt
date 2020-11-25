@@ -7,6 +7,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import com.AixAic.sss.R
+import com.AixAic.sss.logic.Repository
+import com.AixAic.sss.logic.model.Organization
 import com.AixAic.sss.util.LogUtil
 
 class WorkPublishActivity : AppCompatActivity() {
@@ -15,10 +17,11 @@ class WorkPublishActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_publish)
 
-        val typeList = ArrayList<String>()
-        typeList.add("a")
-        typeList.add("b")
-        typeList.add("c")
+        val typeList = ArrayList<Organization>()
+        val user = Repository.getUser()
+        for(organizations in user.organizationsList){
+            typeList.add(organizations.organization)
+        }
         val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
         val typeAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext , typeList)
         typeSpinner.adapter = typeAdapter
@@ -28,6 +31,7 @@ class WorkPublishActivity : AppCompatActivity() {
     class spinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selected = parent?.getItemAtPosition(position).toString()
+            LogUtil.d("workPublish", "${selected}")
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
