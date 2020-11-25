@@ -16,8 +16,9 @@ class WorkPublishActivity : AppCompatActivity() {
         typeList.add("a")
         typeList.add("b")
         val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
-        val typeAdapter = ArrayAdapter(this,R.layout.activity_work_publish,typeList)
+        val typeAdapter = ArrayAdapter(this,R.layout.type_spinner,typeList)
         typeSpinner.adapter = typeAdapter
+
 
 //        val departmentList = ArrayList<String>()
 //        departmentList.add("1")
