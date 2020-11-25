@@ -40,22 +40,38 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/myAllSubmitBtn"
+            android:id="@+id/allSubmitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="全部"/>
         <Button
-            android:id="@+id/myNoSubmitBtn"
+            android:id="@+id/noSubmitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="未提交"/>
         <Button
-            android:id="@+id/mySubmittedBtn"
+            android:id="@+id/submittedBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="已提交"/>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/takePhotoBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take Photo" />
+    <Button
+        android:id="@+id/fromAlbumBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="From Alubm" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
