@@ -1,4 +1,7 @@
 package com.AixAic.sss.logic.model
+
+import com.AixAic.sss.util.LogUtil
+
 //用户信息类
 //status(返回状态) user（用户）
 data class UserResponse (val status: String, val user: User)
@@ -7,6 +10,10 @@ data class User(val id: Int, val name: String, val sno: String, val password: St
 //登陆时传输到服务器的数据
 data class LoginData(val userName: String, val userPassword: String)
 
-data class Organization(val id: Int, val name: String)
+data class Organization(val id: Int, val name: String){
+    override fun toString(): String {
+        return this.name
+    }
+}
 
 data class Organizations(val id: Int, val uid: Int, val oid: Int, val admin: Int, val organization: Organization)

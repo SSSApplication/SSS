@@ -30,8 +30,8 @@ class WorkPublishActivity : AppCompatActivity() {
     }
     class spinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            val selected = parent?.getItemAtPosition(position).toString()
-            LogUtil.d("workPublish", "${selected}")
+            val selected = parent?.getItemAtPosition(position) as Organization //将选择的转化为Organization的类
+            LogUtil.d("workPublish", "${selected.id}")
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
