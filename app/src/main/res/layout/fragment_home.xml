@@ -26,11 +26,6 @@
             android:layout_height="wrap_content"
             android:text="接收"/>
 
-        <Button
-            android:id="@+id/test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="测试"/>
 
     </LinearLayout>
 
@@ -62,22 +57,6 @@
             android:text="已提交"/>
 
     </LinearLayout>
-    <Button
-        android:id="@+id/takePhotoBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Take Photo" />
-    <Button
-        android:id="@+id/fromAlbumBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="From Alubm" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
