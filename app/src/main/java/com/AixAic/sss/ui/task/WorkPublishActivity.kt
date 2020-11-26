@@ -20,7 +20,7 @@ class WorkPublishActivity : AppCompatActivity() {
         val typeList = ArrayList<Organization>()
         val user = Repository.getUser()
         for(organizations in user.organizationsList){
-            typeList.add(organizations.organization)
+            if (organizations.admin == 1) typeList.add(organizations.organization)
         }
         val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
         val typeAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext , typeList)
