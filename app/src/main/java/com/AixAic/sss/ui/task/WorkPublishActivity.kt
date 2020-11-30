@@ -47,7 +47,7 @@ class WorkPublishActivity : AppCompatActivity() {
 
         workSubmitBtn.setOnClickListener {
             viewModel.description = descriptionEdit.text.toString()
-            viewModel.publishWork(viewModel.id, viewModel.uid, viewModel.oid, viewModel.description, viewModel.fileType)
+            viewModel.publishWork(viewModel.id, viewModel.uid, viewModel.oid, viewModel.description, viewModel.filetype)
             viewModel.resultLiveData.observe(this, Observer { result ->
                 val generalResponse = result.getOrNull()
                 if (generalResponse != null) {
@@ -77,8 +77,8 @@ class WorkPublishActivity : AppCompatActivity() {
     inner class typeSpinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selected = parent?.getItemAtPosition(position).toString()
-            viewModel.fileType = selected
-            LogUtil.d("workPublish", "${selected}")
+            viewModel.filetype = selected
+            LogUtil.d("workPublish", "${viewModel.filetype}")
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
