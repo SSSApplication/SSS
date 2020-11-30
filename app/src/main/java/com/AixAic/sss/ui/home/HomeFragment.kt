@@ -1,6 +1,7 @@
 package com.AixAic.sss.ui.home
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
+import com.AixAic.sss.ui.task.WorkPublishActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -18,6 +20,7 @@ import com.youth.banner.Banner
 import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() {
@@ -50,7 +53,27 @@ class HomeFragment : Fragment() {
             }
         }).addBannerLifecycleObserver(this).setIndicator(CircleIndicator(SSSApplication.context))
 
+        if (viewModel.user.isAdmin()) {
+            receiveBtn.visibility = View.VISIBLE
+            receiveBtn.setOnClickListener {
+                publishBtn.visibility = View.VISIBLE
+                allSubmitBtn.visibility = View.GONE
+                noSubmitBtn.visibility = View.GONE
+                submittedBtn.visibility = View.GONE
+            }
+        }
 
+        submitBtn.setOnClickListener {
+            publishBtn.visibility = View.GONE
+            allSubmitBtn.visibility = View.VISIBLE
+            noSubmitBtn.visibility = View.VISIBLE
+            submittedBtn.visibility = View.VISIBLE
+        }
+
+        publishBtn.setOnClickListener {
+            val intent = Intent(context, WorkPublishActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

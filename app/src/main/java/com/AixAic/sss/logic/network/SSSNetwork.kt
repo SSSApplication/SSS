@@ -1,6 +1,7 @@
 package com.AixAic.sss.logic.network
 
 import com.AixAic.sss.logic.model.LoginData
+import com.AixAic.sss.logic.model.Stask
 import com.AixAic.sss.util.LogUtil
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -27,6 +28,10 @@ object SSSNetwork {
     //封装上传文件的网络请求
     private val sfileService = ServiceCreator.create<SfileService>()
     suspend fun upload(body: RequestBody) = sfileService.upload(body).await()
+
+    //封装发布stask的网络请求
+    private val staskService = ServiceCreator.create<StaskService>()
+    suspend fun publishTask(stask: Stask) = staskService.publishTask(stask).await()
 
     //协程suspend
     private suspend fun <T> Call<T>.await(): T {

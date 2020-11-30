@@ -9,6 +9,7 @@ import okhttp3.RequestBody
 
 class HomeViewModel : ViewModel() {
 
+    val user = Repository.getUser()
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

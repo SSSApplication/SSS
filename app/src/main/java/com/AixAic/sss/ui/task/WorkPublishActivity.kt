@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Organization
@@ -13,25 +15,46 @@ import com.AixAic.sss.util.LogUtil
 
 class WorkPublishActivity : AppCompatActivity() {
 
+    val viewModel by lazy { ViewModelProviders.of(this).get(WorkPublishViewModel::class.java) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_publish)
+        //文件类型下拉框
+        val typeList = listOf("图片","Word文档","Excel文档","压缩包")
+        val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
+        val typeAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext, typeList)
+        typeSpinner.adapter = typeAdapter
+        typeSpinner.setOnItemSelectedListener(typeSpinnerListener())
 
-        val typeList = ArrayList<Organization>()
+        //发布到：下拉框
+        val departmentList = ArrayList<Organization>()
         val user = Repository.getUser()
         for(organizations in user.organizationsList){
-            if (organizations.admin == 1) typeList.add(organizations.organization)
+            if (organizations.admin == 1) departmentList.add(organizations.organization)
         }
-        val typeSpinner = findViewById<Spinner>(R.id.typeSpinner)
-        val typeAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext , typeList)
-        typeSpinner.adapter = typeAdapter
-        typeSpinner.setOnItemSelectedListener(spinnerListener())
+        val departmentSpinner = findViewById<Spinner>(R.id.departmentSpinner)
+        val departmentAdapter = ArrayAdapter(this, R.layout.spinner_item, R.id.spinnertext , departmentList)
+        departmentSpinner.adapter = departmentAdapter
+        departmentSpinner.setOnItemSelectedListener(spinnerListener())
 
     }
     class spinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selected = parent?.getItemAtPosition(position) as Organization //将选择的转化为Organization的类
+            
             LogUtil.d("workPublish", "${selected.id}")
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            LogUtil.d("workPublish", "什么都没点")
+        }
+
+    }
+
+    class typeSpinnerListener: AdapterView.OnItemSelectedListener{
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val selected = parent?.getItemAtPosition(position).toString()
+            LogUtil.d("workPublish", "${selected}")
         }
 
         override fun onNothingSelected(parent: AdapterView<*>?) {
