@@ -42,7 +42,7 @@
         android:text="任务要求："/>
 
     <EditText
-        android:id="@+id/description"
+        android:id="@+id/descriptionEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF" />

@@ -1,17 +1,25 @@
 package com.AixAic.sss.ui.task
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.AixAic.sss.R
+import com.AixAic.sss.SSSApplication
 import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Organization
+import com.AixAic.sss.ui.BottomActivity
 import com.AixAic.sss.util.LogUtil
+import kotlinx.android.synthetic.main.activity_work_publish.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class WorkPublishActivity : AppCompatActivity() {
 
@@ -37,11 +45,26 @@ class WorkPublishActivity : AppCompatActivity() {
         departmentSpinner.adapter = departmentAdapter
         departmentSpinner.setOnItemSelectedListener(spinnerListener())
 
+        workSubmitBtn.setOnClickListener {
+            viewModel.description = descriptionEdit.text.toString()
+            viewModel.publishWork(viewModel.id, viewModel.uid, viewModel.oid, viewModel.description, viewModel.fileType)
+            viewModel.resultLiveData.observe(this, Observer { result ->
+                val generalResponse = result.getOrNull()
+                if (generalResponse != null) {
+                    val intent = Intent(SSSApplication.context, BottomActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "发布失败", Toast.LENGTH_LONG).show()
+                    result.exceptionOrNull()?.printStackTrace()
+                }
+            })
+        }
+
     }
-    class spinnerListener: AdapterView.OnItemSelectedListener{
+    inner class spinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selected = parent?.getItemAtPosition(position) as Organization //将选择的转化为Organization的类
-            
+            viewModel.oid = selected.id
             LogUtil.d("workPublish", "${selected.id}")
         }
 
@@ -51,9 +74,10 @@ class WorkPublishActivity : AppCompatActivity() {
 
     }
 
-    class typeSpinnerListener: AdapterView.OnItemSelectedListener{
+    inner class typeSpinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val selected = parent?.getItemAtPosition(position).toString()
+            viewModel.fileType = selected
             LogUtil.d("workPublish", "${selected}")
         }
 
