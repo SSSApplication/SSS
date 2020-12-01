@@ -41,6 +41,19 @@
             android:text="去提交"
             />
 
+        <Button
+            android:id="@+id/submitted"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:background="#D7D8D8"
+            android:textColor="#FFFFFF"
+            android:text="已提交"
+            android:visibility="gone"
+            />
+
+
 
     </LinearLayout>
 

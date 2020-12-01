@@ -79,6 +79,8 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+
+
         viewModel.jobResultLiveData.observe(this, Observer { result ->
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
