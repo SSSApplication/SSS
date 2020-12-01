@@ -33,6 +33,10 @@ object SSSNetwork {
     private val staskService = ServiceCreator.create<StaskService>()
     suspend fun publishTask(stask: Stask) = staskService.publishTask(stask).await()
 
+    //封装job的网络请求
+    private val jobService = ServiceCreator.create<JobService>()
+    suspend fun getJobList(uid: Int) = jobService.getJobList(uid).await()
+
     //协程suspend
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->

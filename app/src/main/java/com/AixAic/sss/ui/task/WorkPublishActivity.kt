@@ -47,7 +47,8 @@ class WorkPublishActivity : AppCompatActivity() {
 
         workSubmitBtn.setOnClickListener {
             viewModel.description = descriptionEdit.text.toString()
-            viewModel.publishWork(viewModel.id, viewModel.uid, viewModel.oid, viewModel.description, viewModel.filetype)
+            viewModel.title = titleEdit.text.toString()
+            viewModel.publishWork(viewModel.id, viewModel.uid, viewModel.oid, viewModel.title, viewModel.description, viewModel.filetype)
             viewModel.resultLiveData.observe(this, Observer { result ->
                 val generalResponse = result.getOrNull()
                 if (generalResponse != null) {

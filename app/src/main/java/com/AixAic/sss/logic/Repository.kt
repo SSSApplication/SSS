@@ -53,6 +53,18 @@ object Repository {
         }
     }
 
+    //获取jobList
+    fun getJobList(uid: Int) = fire(Dispatchers.IO) {
+        val jobResponse = SSSNetwork.getJobList(uid)
+        if (jobResponse.status == "ok") {
+            LogUtil.d("获取job模块", "获取成功")
+            Result.success(jobResponse)
+        } else {
+            LogUtil.d("获取job模块", "获取失败${jobResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${jobResponse.status}"))
+        }
+    }
+
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) = liveData<Result<T>>(context) {
         val result = try {
             block()
