@@ -16,6 +16,7 @@ import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
 import com.AixAic.sss.logic.model.Job
 import com.AixAic.sss.ui.task.WorkPublishActivity
+import com.AixAic.sss.ui.task.WorkSubmitActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +26,7 @@ import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.job_recycle_item.*
 
 
 class HomeFragment : Fragment() {
@@ -97,6 +99,7 @@ class HomeFragment : Fragment() {
         homeRefresh.setOnRefreshListener {
             refreshJobList()
         }
+
 
 
     }
