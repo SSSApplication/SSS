@@ -22,10 +22,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter> 
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.task.WorkPublishActivity"/>
+        <activity android:name=".ui.task.WorkSubmitActivity"/>
         <provider
             android:authorities="com.AixAic.sss.fileprovider"
             android:name="androidx.core.content.FileProvider"

@@ -1,5 +1,6 @@
 package com.AixAic.sss.ui.home
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.model.Job
+import com.AixAic.sss.ui.task.WorkSubmitActivity
 import com.AixAic.sss.util.LogUtil
 
 class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : RecyclerView.Adapter<JobAdapter.ViewHolder>(){
@@ -23,14 +25,15 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.job_recycle_item, parent, false)
-        val viewHolder = ViewHolder(view)
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition
+        val holder = ViewHolder(view)
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
             LogUtil.d("ddd", "${position}")
-//            val job = jobList[position]
-//            Toast.makeText(parent.context, "dasdasdas ${job.stask.description}", Toast.LENGTH_SHORT).show()
+            val job = jobList[position]
+            val intent = Intent(parent.context, WorkSubmitActivity::class.java)
+            fragment.startActivity(intent)
         }
-        return ViewHolder(view)
+        return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
