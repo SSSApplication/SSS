@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
         viewModel.jobResultLiveData.observe(this, Observer { result ->
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
+                viewModel.jobList.clear()
                 viewModel.jobList.addAll(jobResponse.jobList)
                 val layoutManager = LinearLayoutManager(activity)
                 jobRecycler.layoutManager = layoutManager

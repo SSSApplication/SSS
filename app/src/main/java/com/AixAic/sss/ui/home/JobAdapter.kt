@@ -26,7 +26,6 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
         val job = jobList[position]
         holder.title.text = job.stask.title
         holder.jobOwner.text = job.user.name
-        LogUtil.d("JobAdapter", job.stask.title)
     }
 
     override fun getItemCount() = jobList.size
