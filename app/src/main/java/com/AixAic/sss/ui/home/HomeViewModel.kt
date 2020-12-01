@@ -12,7 +12,7 @@ class HomeViewModel : ViewModel() {
 
     val user = Repository.getUser()
     private val jobLiveData = MutableLiveData<Int>()
-    val jobList = ArrayList<Job>()
+    var jobList = ArrayList<Job>()
 
     val jobResultLiveData = Transformations.switchMap(jobLiveData) {uid ->
         Repository.getJobList(uid)

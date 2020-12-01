@@ -81,6 +81,10 @@ class HomeFragment : Fragment() {
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
                 viewModel.jobList.addAll(jobResponse.jobList)
+                val layoutManager = LinearLayoutManager(activity)
+                jobRecycler.layoutManager = layoutManager
+                jobAdapter = JobAdapter(this, viewModel.jobList)
+                jobRecycler.adapter = jobAdapter
             } else {
                 Toast.makeText(activity, "没有作业", Toast.LENGTH_LONG).show()
                 result.exceptionOrNull()?.printStackTrace()
@@ -92,10 +96,7 @@ class HomeFragment : Fragment() {
         homeRefresh.setOnRefreshListener {
             refreshJobList()
         }
-        val layoutManager = LinearLayoutManager(SSSApplication.context)
-        jobRecycler.layoutManager = layoutManager
-        jobAdapter = JobAdapter(this, viewModel.jobList)
-        jobRecycler.adapter = jobAdapter
+
 
     }
 

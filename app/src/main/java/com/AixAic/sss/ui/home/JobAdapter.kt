@@ -7,12 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.model.Job
-import kotlinx.android.synthetic.main.activity_work_publish.view.*
+import com.AixAic.sss.util.LogUtil
 
 class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : RecyclerView.Adapter<JobAdapter.ViewHolder>(){
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.findViewById(R.id.titleEdit)
+        val title: TextView = view.findViewById(R.id.jobTitle)
         val jobOwner: TextView = view.findViewById(R.id.jobOwner)
     }
 
@@ -25,7 +25,8 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val job = jobList[position]
         holder.title.text = job.stask.title
-        holder.title.text = job.user.name
+        holder.jobOwner.text = job.user.name
+        LogUtil.d("JobAdapter", job.stask.title)
     }
 
     override fun getItemCount() = jobList.size
