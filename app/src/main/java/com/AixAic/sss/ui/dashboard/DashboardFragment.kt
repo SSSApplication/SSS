@@ -154,9 +154,8 @@ class DashboardFragment : Fragment() {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     LogUtil.d("上传文件", "${data.data.toString()}")
 
-                    val path = FileUtil.uri2path(SSSApplication.context, data.data!!)
-                    val file = File(path)
-                    LogUtil.d("上传文件", "${path}, ${file.totalSpace}")
+                    val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
+                    LogUtil.d("上传文件", " ${file.totalSpace}")
                     val body = HttpUtil.imageUploadBody(file, "1")
                     val uploadService = ServiceCreator.create<SfileService>()
                     uploadService.upload(body).enqueue(object : Callback<GeneralResponse> {
