@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
+import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Job
 import com.AixAic.sss.ui.task.WorkPublishActivity
 import com.AixAic.sss.ui.task.WorkSubmitActivity
@@ -72,6 +73,8 @@ class HomeFragment : Fragment() {
             allSubmitBtn.visibility = View.VISIBLE
             noSubmitBtn.visibility = View.VISIBLE
             submittedBtn.visibility = View.VISIBLE
+            viewModel.status = viewModel.submitAll
+            refreshJobList()
         }
 
         publishBtn.setOnClickListener {
@@ -79,13 +82,31 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+        allSubmitBtn.setOnClickListener {
+            viewModel.status = viewModel.submitAll
+            refreshJobList()
+        }
 
+        noSubmitBtn.setOnClickListener {
+            viewModel.status = viewModel.noSubmit
+            refreshJobList()
+        }
+
+        submittedBtn.setOnClickListener {
+            viewModel.status = viewModel.submitted
+            refreshJobList()
+        }
+
+        receiveBtn.setOnClickListener {
+            viewModel.status = viewModel.receive
+            refreshJobList()
+        }
 
         viewModel.jobResultLiveData.observe(this, Observer { result ->
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
                 viewModel.jobList.clear()
-                viewModel.jobList.addAll(jobResponse.jobList)
+                getJobList(jobResponse.jobList)
                 val layoutManager = LinearLayoutManager(activity)
                 jobRecycler.layoutManager = layoutManager
                 jobAdapter = JobAdapter(this, viewModel.jobList)
@@ -104,6 +125,28 @@ class HomeFragment : Fragment() {
 
 
 
+    }
+    fun getJobList(jobList: List<Job>) {
+        when (viewModel.status) {
+            viewModel.submitAll -> {
+                viewModel.jobList.addAll(jobList)
+            }
+            viewModel.submitted -> {
+                for ( job in jobList){
+                    if (job.status == 1) viewModel.jobList.add(job)
+                }
+            }
+            viewModel.noSubmit -> {
+                for ( job in jobList){
+                    if (job.status == 0) viewModel.jobList.add(job)
+                }
+            }
+            viewModel.receive -> {
+                for (job in jobList) {
+                    if (job.stask.uid == Repository.getUser().id) viewModel.jobList.add(job)
+                }
+            }
+        }
     }
 
     fun refreshJobList() {

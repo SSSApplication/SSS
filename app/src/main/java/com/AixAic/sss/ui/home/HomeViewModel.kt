@@ -9,6 +9,12 @@ import com.AixAic.sss.logic.model.Job
 import okhttp3.RequestBody
 
 class HomeViewModel : ViewModel() {
+    val submitAll = 1 //提交全部
+    val submitted = 2 //已提交
+    val noSubmit = 3 //未提交
+    val receive = 4 //接收
+    var status = submitAll
+
 
     val user = Repository.getUser()
     private val jobLiveData = MutableLiveData<Int>()

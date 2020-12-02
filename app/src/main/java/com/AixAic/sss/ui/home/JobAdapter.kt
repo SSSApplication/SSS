@@ -26,11 +26,13 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.job_recycle_item, parent, false)
         val holder = ViewHolder(view)
-        holder.itemView.setOnClickListener {
+        holder.toSubmit.setOnClickListener {
             val position = holder.adapterPosition
             LogUtil.d("ddd", "${position}")
             val job = jobList[position]
-            val intent = Intent(parent.context, WorkSubmitActivity::class.java)
+            val intent = Intent(parent.context, WorkSubmitActivity::class.java).apply {
+                putExtra("description", job.stask.description)
+            }
             fragment.startActivity(intent)
         }
         return holder
