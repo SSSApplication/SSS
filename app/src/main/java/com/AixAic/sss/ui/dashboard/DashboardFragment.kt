@@ -128,7 +128,7 @@ class DashboardFragment : Fragment() {
         when (requestCode) {
             takePhoto -> {
                 LogUtil.d("上传成功", "${outputImage.totalSpace}")
-                val body = HttpUtil.generateUploadBody1(outputImage, "photo")
+                val body = HttpUtil.imageUploadBody(outputImage, "1")
                 val uploadService = ServiceCreator.create<SfileService>()
                 uploadService.upload(body).enqueue(object : Callback<GeneralResponse> {
                     override fun onResponse(call: Call<GeneralResponse>, response: Response<GeneralResponse>) {
@@ -157,7 +157,7 @@ class DashboardFragment : Fragment() {
                     val path = FileUtil.uri2path(SSSApplication.context, data.data!!)
                     val file = File(path)
                     LogUtil.d("上传文件", "${path}, ${file.totalSpace}")
-                    val body = HttpUtil.generateUploadBody1(file, "photo")
+                    val body = HttpUtil.imageUploadBody(file, "1")
                     val uploadService = ServiceCreator.create<SfileService>()
                     uploadService.upload(body).enqueue(object : Callback<GeneralResponse> {
                         override fun onResponse(call: Call<GeneralResponse>, response: Response<GeneralResponse>) {

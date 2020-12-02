@@ -6,9 +6,9 @@ import okhttp3.RequestBody
 import java.io.File
 
 object HttpUtil {
-    fun generateUploadBody1(file: File, fileKey: String): RequestBody {
+    fun imageUploadBody(file: File, jid: String): RequestBody {
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
-            .addFormDataPart("fileKey", fileKey)
+            .addFormDataPart("jid", jid)
             .addFormDataPart("file", file.name, RequestBody.create(MediaType.parse("image/*"), file))
             .build()
         return body
