@@ -109,11 +109,19 @@ class WorkSubmitActivity : AppCompatActivity() {
                 val layoutManager = LinearLayoutManager(this)
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 recyclePic.layoutManager = layoutManager
-                pictureAdapter = PictureAdapter(viewModel.sfileList)
+                pictureAdapter = PictureAdapter(this, viewModel.sfileList)
                 LogUtil.d("listsize", viewModel.sfileList.size.toString())
                 recyclePic.adapter = pictureAdapter
             }else{
                 LogUtil.d("获取文件","失败")
+            }
+        })
+        viewModel.delteFileLiveData.observe(this, { result ->
+            val generalResponse = result.getOrNull()
+            if (generalResponse != null && generalResponse.status == "ok"){
+                viewModel.listFile(viewModel.jid.toInt())
+            }else {
+                LogUtil.d("删除文件","失败")
             }
         })
     }

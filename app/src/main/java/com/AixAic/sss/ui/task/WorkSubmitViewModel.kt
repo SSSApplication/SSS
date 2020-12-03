@@ -19,6 +19,7 @@ class WorkSubmitViewModel : ViewModel() {
     var sfileList = ArrayList<Sfile>()
     private val fileLiveData = MutableLiveData<RequestBody>()
     private val jidLiveData = MutableLiveData<Int>()
+    private val idLiveData = MutableLiveData<Int>()
 
     val uploadLiveData = Transformations.switchMap(fileLiveData){body ->
         Repository.upload(body)
@@ -28,6 +29,10 @@ class WorkSubmitViewModel : ViewModel() {
         Repository.getByJid(jid)
     }
 
+    val delteFileLiveData = Transformations.switchMap(idLiveData){ id ->
+        Repository.delete(id)
+    }
+
     //外部调用的接口
     fun upload(body: RequestBody){
         fileLiveData.value = body
@@ -35,6 +40,10 @@ class WorkSubmitViewModel : ViewModel() {
 
     fun listFile(jid: Int){
         jidLiveData.value = jid
+    }
+
+    fun deleteFile(id: Int) {
+        idLiveData.value = id
     }
 
 

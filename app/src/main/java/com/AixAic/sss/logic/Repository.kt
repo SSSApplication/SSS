@@ -52,6 +52,17 @@ object Repository {
             Result.failure(RuntimeException("response status is ${sfileResponse.status}"))
         }
     }
+    //删除文件
+    fun delete(id: Int) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.delete(id)
+        if (generalResponse.status == "ok") {
+            LogUtil.d("删除文件模块", "删除成功")
+            Result.success(generalResponse)
+        }else{
+            LogUtil.d("删除文件模块", "删除失败")
+            Result.failure(RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
 
     //发布任务
     fun publishTask(stask: Stask) = fire(Dispatchers.IO) {

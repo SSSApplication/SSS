@@ -17,4 +17,8 @@ interface SfileService {
     //获取文件列表
     @GET("sfile/{jid}")
     fun listByjid(@Path("jid") jid: Int): Call<SfileResponse>
+
+    //删除文件
+    @DELETE("sfile/{id}")
+    fun delete(@Path("id") id: Int): Call<GeneralResponse>
 }

@@ -31,6 +31,8 @@ object SSSNetwork {
 
     suspend fun listByJid(jid: Int) = sfileService.listByjid(jid).await()
 
+    suspend fun delete(id: Int) = sfileService.delete(id).await()
+
     //封装发布stask的网络请求
     private val staskService = ServiceCreator.create<StaskService>()
     suspend fun publishTask(stask: Stask) = staskService.publishTask(stask).await()
