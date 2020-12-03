@@ -30,6 +30,7 @@ import com.AixAic.sss.logic.network.SfileService
 import com.AixAic.sss.util.FileUtil
 import com.AixAic.sss.util.HttpUtil
 import com.AixAic.sss.util.LogUtil
+import com.bumptech.glide.Glide
 import com.permissionx.aixlibrary.PermissionX
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.CoroutineScope
@@ -39,6 +40,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.net.URL
 
 class DashboardFragment : Fragment() {
 
@@ -73,6 +75,7 @@ class DashboardFragment : Fragment() {
             }
             job.cancel()
         }
+        Glide.with(SSSApplication.context).load("http://10.0.2.2/uploaded/img_small/1606982391209IMG_20201123_131651.jpg").into(imageView)
         takePhotoBtn.setOnClickListener {
             //创建File对象，用于存储拍照后的照片
             outputImage = File(SSSApplication.context.externalCacheDir, "output_image.jpg")

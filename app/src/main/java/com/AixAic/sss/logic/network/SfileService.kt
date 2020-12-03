@@ -13,4 +13,7 @@ interface SfileService {
     @POST("sfile")
     fun upload(@Body body: RequestBody): Call<GeneralResponse>
 
+    //获取文件列表
+    @GET("sfile/{jid}")
+    fun listByjid(@Path("jid") jid: Int): Call<GeneralResponse>
 }
