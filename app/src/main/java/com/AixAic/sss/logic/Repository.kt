@@ -87,6 +87,17 @@ object Repository {
             Result.failure(java.lang.RuntimeException("response status is ${jobResponse.status}"))
         }
     }
+    //提交作业
+    fun submit(id: Int) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.submit(id)
+        if (generalResponse.status == "ok"){
+            LogUtil.d("提交job模块", "提交成功")
+            Result.success(generalResponse)
+        } else {
+            LogUtil.d("提交job模块", "提交失败${generalResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
 
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) = liveData<Result<T>>(context) {
         val result = try {

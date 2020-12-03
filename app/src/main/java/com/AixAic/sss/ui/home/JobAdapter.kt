@@ -28,7 +28,17 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
         val holder = ViewHolder(view)
         holder.toSubmit.setOnClickListener {
             val position = holder.adapterPosition
-            LogUtil.d("ddd", "${position}")
+            LogUtil.d("jobListposition", "${position}")
+            val job = jobList[position]
+            val intent = Intent(parent.context, WorkSubmitActivity::class.java).apply {
+                putExtra("description", job.stask.description)
+                putExtra("jid", "${job.id}")
+            }
+            fragment.startActivity(intent)
+        }
+        holder.submitted.setOnClickListener {
+            val position = holder.adapterPosition
+            LogUtil.d("jobListposition", "${position}")
             val job = jobList[position]
             val intent = Intent(parent.context, WorkSubmitActivity::class.java).apply {
                 putExtra("description", job.stask.description)

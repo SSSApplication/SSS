@@ -4,10 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="60dp">
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_accessory"
+        />
     <TextView
         android:id="@+id/accessoryName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:textSize="18dp"/>
+    <TextView
+        android:id="@+id/deleteSfile"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="删除"
+        android:textSize="30dp"/>
 
 </LinearLayout>

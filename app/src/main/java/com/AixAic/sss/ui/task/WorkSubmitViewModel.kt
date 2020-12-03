@@ -12,14 +12,18 @@ import java.io.File
 class WorkSubmitViewModel : ViewModel() {
     val takePhoto = 1
     val fromAlbum = 2
+    val fromFiles = 3
     lateinit var imageUri: Uri
     lateinit var outputImage: File
     var description = ""
     var jid = ""
     var sfileList = ArrayList<Sfile>()
+    var picList = ArrayList<Sfile>()
+    var accList = ArrayList<Sfile>()
     private val fileLiveData = MutableLiveData<RequestBody>()
     private val jidLiveData = MutableLiveData<Int>()
     private val idLiveData = MutableLiveData<Int>()
+    private val jobJidLiveData = MutableLiveData<Int>()
 
     val uploadLiveData = Transformations.switchMap(fileLiveData){body ->
         Repository.upload(body)
@@ -31,6 +35,10 @@ class WorkSubmitViewModel : ViewModel() {
 
     val delteFileLiveData = Transformations.switchMap(idLiveData){ id ->
         Repository.delete(id)
+    }
+
+    val submitJobLiveData = Transformations.switchMap(jobJidLiveData){ id ->
+        Repository.submit(id)
     }
 
     //外部调用的接口
@@ -46,6 +54,9 @@ class WorkSubmitViewModel : ViewModel() {
         idLiveData.value = id
     }
 
+    fun submitJob(id: Int) {
+        jobJidLiveData.value = id
+    }
 
 
 }
