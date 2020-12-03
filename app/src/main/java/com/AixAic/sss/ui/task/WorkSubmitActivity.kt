@@ -8,11 +8,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
+import com.AixAic.sss.logic.model.SfileResponse
 import com.AixAic.sss.util.FileUtil
 import com.AixAic.sss.util.HttpUtil
 import com.AixAic.sss.util.LogUtil
@@ -22,6 +25,8 @@ import java.io.File
 
 class WorkSubmitActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProviders.of(this).get(WorkSubmitViewModel::class.java) }
+
+    private lateinit var pictureAdapter: PictureAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,7 @@ class WorkSubmitActivity : AppCompatActivity() {
             viewModel.jid = intent.getStringExtra("jid") ?: "0"
 
         }
+        viewModel.listFile(viewModel.jid.toInt())
         LogUtil.d("jid", "${viewModel.jid}")
         add_pic_from_camera.setOnClickListener {
             //创建File对象，用于存储拍照后的照片
@@ -89,8 +95,25 @@ class WorkSubmitActivity : AppCompatActivity() {
             val generalResponse = result.getOrNull()
             if (generalResponse != null && generalResponse.status == "ok") {
                 LogUtil.d("上传文件","成功")
+                viewModel.listFile(viewModel.jid.toInt())
             }else {
                 LogUtil.d("上传文件","失败")
+            }
+        })
+        viewModel.listFileLiveData.observe(this, {result ->
+            val sfileResponse = result.getOrNull()
+            if (sfileResponse != null && sfileResponse.status == "ok") {
+                LogUtil.d("获取文件","成功")
+                viewModel.sfileList.clear()
+                viewModel.sfileList.addAll(sfileResponse.sfileList)
+                val layoutManager = LinearLayoutManager(this)
+                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                recyclePic.layoutManager = layoutManager
+                pictureAdapter = PictureAdapter(viewModel.sfileList)
+                LogUtil.d("listsize", viewModel.sfileList.size.toString())
+                recyclePic.adapter = pictureAdapter
+            }else{
+                LogUtil.d("获取文件","失败")
             }
         })
     }

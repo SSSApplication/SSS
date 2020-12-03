@@ -43,6 +43,7 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
         val job = jobList[position]
         holder.title.text = job.stask.title
         holder.jobOwner.text = "发布人: " + job.user.name
+        LogUtil.d("ddddd", job.stask.title)
         if (job.status == 0){
             holder.toSubmit.visibility = View.VISIBLE
             holder.submitted.visibility = View.GONE

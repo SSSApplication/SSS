@@ -2,6 +2,7 @@ package com.AixAic.sss.logic.network
 
 
 import com.AixAic.sss.logic.model.GeneralResponse
+import com.AixAic.sss.logic.model.SfileResponse
 import okhttp3.RequestBody
 
 
@@ -15,5 +16,5 @@ interface SfileService {
 
     //获取文件列表
     @GET("sfile/{jid}")
-    fun listByjid(@Path("jid") jid: Int): Call<GeneralResponse>
+    fun listByjid(@Path("jid") jid: Int): Call<SfileResponse>
 }

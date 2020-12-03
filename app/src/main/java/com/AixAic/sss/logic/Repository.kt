@@ -41,6 +41,18 @@ object Repository {
         }
     }
 
+    //获取文件
+    fun getByJid(jid: Int) = fire(Dispatchers.IO) {
+        val sfileResponse = SSSNetwork.listByJid(jid)
+        if (sfileResponse.status == "ok") {
+            LogUtil.d("获取文件模块", "获取成功")
+            Result.success(sfileResponse)
+        }else{
+            LogUtil.d("获取文件模块", "获取失败")
+            Result.failure(RuntimeException("response status is ${sfileResponse.status}"))
+        }
+    }
+
     //发布任务
     fun publishTask(stask: Stask) = fire(Dispatchers.IO) {
         val generalResponse = SSSNetwork.publishTask(stask)

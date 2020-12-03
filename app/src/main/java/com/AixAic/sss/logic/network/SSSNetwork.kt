@@ -29,6 +29,8 @@ object SSSNetwork {
     private val sfileService = ServiceCreator.create<SfileService>()
     suspend fun upload(body: RequestBody) = sfileService.upload(body).await()
 
+    suspend fun listByJid(jid: Int) = sfileService.listByjid(jid).await()
+
     //封装发布stask的网络请求
     private val staskService = ServiceCreator.create<StaskService>()
     suspend fun publishTask(stask: Stask) = staskService.publishTask(stask).await()
