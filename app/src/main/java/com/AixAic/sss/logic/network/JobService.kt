@@ -11,6 +11,9 @@ interface JobService {
     @GET("job/{uid}")
     fun getJobList(@Path("uid") uid: Int): Call<JobResponse>
 
+    @GET("jobReceive/{stid}")
+    fun getListByStid(@Path("stid") stid: Int): Call<JobResponse>
+
 //    提交
     @PUT("job/{id}")
     fun submit(@Path("id") id: Int): Call<GeneralResponse>

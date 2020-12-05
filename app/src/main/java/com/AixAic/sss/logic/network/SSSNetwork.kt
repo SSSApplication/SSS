@@ -40,6 +40,7 @@ object SSSNetwork {
     //封装job的网络请求
     private val jobService = ServiceCreator.create<JobService>()
     suspend fun getJobList(uid: Int) = jobService.getJobList(uid).await()
+    suspend fun getListByStid(stid: Int) = jobService.getListByStid(stid).await()
     suspend fun submit(id: Int) = jobService.submit(id).await()
 
     //协程suspend

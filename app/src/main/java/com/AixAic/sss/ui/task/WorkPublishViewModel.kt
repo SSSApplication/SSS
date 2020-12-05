@@ -22,6 +22,6 @@ class WorkPublishViewModel : ViewModel() {
 
     //外部调用接口
     fun publishWork(id: Int, uid: Int, oid: Int, title: String, description: String, filetype: String) {
-        staskLiveData.value = Stask(id, uid, oid, title, description, filetype)
+        staskLiveData.value = Stask(id, uid, oid, title, description, filetype, Repository.getUser())
     }
 }

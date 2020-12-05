@@ -27,6 +27,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.task.WorkPublishActivity"/>
         <activity android:name=".ui.task.WorkSubmitActivity"/>
+        <activity android:name=".ui.task.WorkReceiveActivity"/>
         <provider
             android:authorities="com.AixAic.sss.fileprovider"
             android:name="androidx.core.content.FileProvider"

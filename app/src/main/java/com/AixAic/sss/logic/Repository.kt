@@ -52,6 +52,17 @@ object Repository {
             Result.failure(RuntimeException("response status is ${sfileResponse.status}"))
         }
     }
+
+    fun getListByStid(stid: Int) = fire(Dispatchers.IO) {
+        val jobResponse = SSSNetwork.getListByStid(stid)
+        if (jobResponse.status == "ok"){
+            LogUtil.d("获取文件模块(stid)", "获取成功")
+            Result.success(jobResponse)
+        }else{
+            LogUtil.d("获取文件模块(stid)", "获取失败")
+            Result.failure(RuntimeException("response status is ${jobResponse.status}"))
+        }
+    }
     //删除文件
     fun delete(id: Int) = fire(Dispatchers.IO) {
         val generalResponse = SSSNetwork.delete(id)

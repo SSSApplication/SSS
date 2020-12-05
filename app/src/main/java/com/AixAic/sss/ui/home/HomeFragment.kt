@@ -35,6 +35,7 @@ class HomeFragment : Fragment() {
     val viewModel by lazy { ViewModelProviders.of(this).get(HomeViewModel::class.java)}
 
     private lateinit var jobAdapter: JobAdapter
+    private lateinit var receiveAdapter: ReceiveAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -106,8 +107,13 @@ class HomeFragment : Fragment() {
                 getJobList(jobResponse.jobList)
                 val layoutManager = LinearLayoutManager(activity)
                 jobRecycler.layoutManager = layoutManager
-                jobAdapter = JobAdapter(this, viewModel.jobList)
-                jobRecycler.adapter = jobAdapter
+                if (viewModel.status == viewModel.receive) {
+                    receiveAdapter = ReceiveAdapter(this, viewModel.jobList)
+                    jobRecycler.adapter = receiveAdapter
+                }else{
+                    jobAdapter = JobAdapter(this, viewModel.jobList)
+                    jobRecycler.adapter = jobAdapter
+                }
             } else {
                 Toast.makeText(activity, "没有作业", Toast.LENGTH_LONG).show()
                 result.exceptionOrNull()?.printStackTrace()

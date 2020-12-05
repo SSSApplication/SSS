@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     app:cardCornerRadius="4dp">
 
@@ -18,12 +19,12 @@
             android:layout_weight="7"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/jobTitle"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"/>
             <TextView
-                android:id="@+id/jobOwner"
+                android:id="@+id/submitStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
@@ -31,41 +32,27 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/toSubmit"
+            android:id="@+id/askToSubmit"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
             android:background="#00D9FF"
             android:textColor="#FFFFFF"
-            android:text="去提交"
+            android:text="催交"
             />
 
         <Button
-            android:id="@+id/submitted"
+            android:id="@+id/receiveSubmitted"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="5dp"
+            android:visibility="gone"
             android:background="#D7D8D8"
             android:textColor="#FFFFFF"
             android:text="已提交"
-            android:visibility="gone"
             />
-
-        <Button
-            android:id="@+id/checkTask"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dp"
-            android:background="#00D9FF"
-            android:textColor="#FFFFFF"
-            android:text="查看"
-            android:visibility="gone"
-            />
-
-
 
     </LinearLayout>
 

@@ -46,13 +46,14 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
             }
             fragment.startActivity(intent)
         }
+
         return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val job = jobList[position]
         holder.title.text = job.stask.title
-        holder.jobOwner.text = "发布人: " + job.user.name
+        holder.jobOwner.text = "发布人: " + job.stask.user.name
         LogUtil.d("ddddd", job.stask.title)
         if (job.status == 0){
             holder.toSubmit.visibility = View.VISIBLE
