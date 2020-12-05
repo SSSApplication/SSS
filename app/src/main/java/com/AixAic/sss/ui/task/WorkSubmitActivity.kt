@@ -36,7 +36,7 @@ class WorkSubmitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_submit)
-        customDialog = CustomDialog(this, "玩命上传中")
+        customDialog = CustomDialog(this)
         if (viewModel.description.isEmpty()){
             viewModel.description = intent.getStringExtra("description") ?: ""
             description.text = viewModel.description
