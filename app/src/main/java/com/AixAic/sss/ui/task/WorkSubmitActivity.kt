@@ -195,12 +195,16 @@ class WorkSubmitActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode) {
             viewModel.takePhoto -> {
-                LogUtil.d("上传文件大小", "${viewModel.outputImage.totalSpace}")
-                val body = HttpUtil.imageUploadBody(viewModel.outputImage, viewModel.jid)
-                viewModel.upload(body)
+                if (resultCode == Activity.RESULT_OK) {
+                    customDialog.show()
+                    LogUtil.d("上传文件大小", "${viewModel.outputImage.totalSpace}")
+                    val body = HttpUtil.imageUploadBody(viewModel.outputImage, viewModel.jid)
+                    viewModel.upload(body)
+                }
             }
             viewModel.fromAlbum -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
+                    customDialog.show()
                     val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
                     LogUtil.d("上传文件", "${file.totalSpace}")
                     val body = HttpUtil.imageUploadBody(file, viewModel.jid)
@@ -209,6 +213,7 @@ class WorkSubmitActivity : AppCompatActivity() {
             }
             viewModel.fromFiles -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
+                    customDialog.show()
                         val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
                         LogUtil.d("上传文件", "${file.totalSpace}")
                         val body = HttpUtil.fileUploadBody(file, viewModel.jid)
@@ -216,7 +221,6 @@ class WorkSubmitActivity : AppCompatActivity() {
                     }
             }
         }
-        customDialog.show()
     }
 
     private fun sortSfile(sfileList: List<Sfile>) {
