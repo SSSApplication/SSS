@@ -65,6 +65,8 @@ class HomeFragment : Fragment() {
                 allSubmitBtn.visibility = View.GONE
                 noSubmitBtn.visibility = View.GONE
                 submittedBtn.visibility = View.GONE
+                viewModel.status = viewModel.receive
+                refreshJobList()
             }
         }
 
@@ -94,11 +96,6 @@ class HomeFragment : Fragment() {
 
         submittedBtn.setOnClickListener {
             viewModel.status = viewModel.submitted
-            refreshJobList()
-        }
-
-        receiveBtn.setOnClickListener {
-            viewModel.status = viewModel.receive
             refreshJobList()
         }
 

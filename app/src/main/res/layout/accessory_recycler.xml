@@ -5,20 +5,26 @@
     android:layout_height="60dp">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_accessory"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_file"
         />
     <TextView
         android:id="@+id/accessoryName"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:textSize="18dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="18sp"/>
     <TextView
         android:id="@+id/deleteSfile"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="删除"
-        android:textSize="30dp"/>
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/tips_circle"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:text="X"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
