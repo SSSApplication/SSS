@@ -24,6 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".ui.task.DownLoadCompleteReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MYDOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.task.WorkPublishActivity"/>
         <activity android:name=".ui.task.WorkSubmitActivity"/>

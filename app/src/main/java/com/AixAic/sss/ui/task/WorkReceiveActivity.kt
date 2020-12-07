@@ -1,28 +1,34 @@
 package com.AixAic.sss.ui.task
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DownloadManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
-import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.Job
+import com.AixAic.sss.logic.network.ServiceCreator
 import com.AixAic.sss.util.LogUtil
 import kotlinx.android.synthetic.main.activity_work_receive.*
 import kotlinx.android.synthetic.main.activity_work_submit.description
 
 
-
 class WorkReceiveActivity : AppCompatActivity() {
     val viewModel by lazy { ViewModelProviders.of(this).get(WorkReceiveViewModel::class.java) }
+    lateinit var customDialog: CustomDialog
 
     private lateinit var workReceiveAdapter: WorkReceiveAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_receive)
+        customDialog = CustomDialog(this, "疯狂打包中")
         if (viewModel.description.isEmpty()){
             viewModel.description = intent.getStringExtra("description") ?: ""
             description.text = viewModel.description
@@ -48,6 +54,7 @@ class WorkReceiveActivity : AppCompatActivity() {
 
         packageFileBtn.setOnClickListener {
             viewModel.packageFile(viewModel.stid.toInt())
+            customDialog.show()
         }
 
         viewModel.receiveResultLiveData.observe(this, Observer { result ->
@@ -69,8 +76,13 @@ class WorkReceiveActivity : AppCompatActivity() {
         viewModel.packageFileLiveData.observe(this, { result ->
             val fileResponse = result.getOrNull()
             if (fileResponse != null) {
-                Toast.makeText(this, "打包成功", Toast.LENGTH_LONG).show()
-            }else {
+                if (fileResponse.status == "ok") {
+                    Toast.makeText(this, "打包成功", Toast.LENGTH_LONG).show()
+                    val filename = fileResponse.stask.id.toString()+fileResponse.stask.title+".zip"
+                    downloadFile(filename)
+                    customDialog.dismiss()
+                }
+            } else {
                 Toast.makeText(this, "打包失败", Toast.LENGTH_LONG).show()
             }
         })
@@ -88,12 +100,12 @@ class WorkReceiveActivity : AppCompatActivity() {
                 viewModel.jobList.addAll(jobList)
             }
             viewModel.submitted -> {
-                for ( job in jobList){
+                for (job in jobList) {
                     if (job.status == 1) viewModel.jobList.add(job)
                 }
             }
             viewModel.noSubmit -> {
-                for ( job in jobList){
+                for (job in jobList) {
                     if (job.status == 0) viewModel.jobList.add(job)
                 }
             }
@@ -102,5 +114,34 @@ class WorkReceiveActivity : AppCompatActivity() {
     fun refreshJobList() {
         viewModel.refreshJobList(viewModel.stid.toInt())
         receiveRefresh.isRefreshing = true
+    }
+    fun downloadFile(filename: String) {
+        //下载路径，如果路径无效了，可换成你的下载路径
+        val url = ServiceCreator.BASE_PACKAGEFILE+filename
+        //获取下载管理器
+        //创建下载任务,downloadUrl就是下载链接
+        val request = DownloadManager.Request(Uri.parse(url))
+        //设置什么网络情况下可以下载
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE)
+        //设置通知栏的标题
+        request.setTitle("SSS打包文件");
+        //设置通知栏的message
+        request.setDescription("${filename}正在下载.....");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+        //设置漫游状态下是否可以下载
+        request.setAllowedOverRoaming(false);
+
+        //指定下载路径和下载文件名
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, url.substring(url.lastIndexOf("/")))
+        LogUtil.d("下载地址", "${Environment.DIRECTORY_DOWNLOADS}--------${url.substring(url.lastIndexOf("/"))}")
+        //获取系统服务
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        //进行下载
+        val id = downloadManager.enqueue(request)
+        val intent = Intent("android.intent.action.MYDOWNLOAD_COMPLETE")
+        intent.putExtra(DownloadManager.EXTRA_DOWNLOAD_ID, id)
+        intent.putExtra("filename", filename)
+        intent.setPackage(packageName)
+        sendBroadcast(intent)
     }
 }

@@ -5,6 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 //Retrofit构造器
 object ServiceCreator {
+//    "http://192.168.8.106/" 手机
+//    模拟器 "http://10.0.2.2/"
     private const val BASE_URL = "http://10.0.2.2/"
     val BASE_IMG = BASE_URL+"uploaded/img/"
     val BASE_IMG_SMALL = BASE_URL + "uploaded/img_small/"
