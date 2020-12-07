@@ -87,6 +87,17 @@ object Repository {
         }
     }
 
+    fun packageFile(id: Int) = fire(Dispatchers.IO) {
+        val staskResponse = SSSNetwork.packageFile(id)
+        if (staskResponse.status == "ok") {
+            LogUtil.d("打包下载模块", "打包成功")
+            Result.success(staskResponse)
+        }else{
+            LogUtil.d("打包下载模块", "打包失败${staskResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${staskResponse.status}"))
+        }
+    }
+
     //获取jobList
     fun getJobList(uid: Int) = fire(Dispatchers.IO) {
         val jobResponse = SSSNetwork.getJobList(uid)

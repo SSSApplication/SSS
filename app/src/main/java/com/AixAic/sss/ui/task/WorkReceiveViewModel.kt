@@ -14,16 +14,26 @@ class WorkReceiveViewModel : ViewModel(){
     val noSubmit = 3 //未提交
     var status = submitAll
 
+
     val user = Repository.getUser()
     private val receiveLiveData = MutableLiveData<Int>()
+    private val packageLiveData = MutableLiveData<Int>()
     var jobList = ArrayList<Job>()
 
     val receiveResultLiveData = Transformations.switchMap(receiveLiveData) {stid ->
         Repository.getListByStid(stid)
     }
 
+    val packageFileLiveData = Transformations.switchMap(packageLiveData) {id ->
+        Repository.packageFile(id)
+    }
+
     fun refreshJobList(stid: Int) {
         receiveLiveData.value = stid
+    }
+
+    fun packageFile(id: Int) {
+        packageLiveData.value = id
     }
 
 }

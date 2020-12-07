@@ -36,6 +36,7 @@ object SSSNetwork {
     //封装发布stask的网络请求
     private val staskService = ServiceCreator.create<StaskService>()
     suspend fun publishTask(stask: Stask) = staskService.publishTask(stask).await()
+    suspend fun packageFile(id: Int) = staskService.packageFile(id).await()
 
     //封装job的网络请求
     private val jobService = ServiceCreator.create<JobService>()

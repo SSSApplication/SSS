@@ -46,6 +46,10 @@ class WorkReceiveActivity : AppCompatActivity() {
             refreshJobList()
         }
 
+        packageFileBtn.setOnClickListener {
+            viewModel.packageFile(viewModel.stid.toInt())
+        }
+
         viewModel.receiveResultLiveData.observe(this, Observer { result ->
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
@@ -60,6 +64,15 @@ class WorkReceiveActivity : AppCompatActivity() {
                 result.exceptionOrNull()?.printStackTrace()
             }
             receiveRefresh.isRefreshing = false
+        })
+
+        viewModel.packageFileLiveData.observe(this, { result ->
+            val fileResponse = result.getOrNull()
+            if (fileResponse != null) {
+                Toast.makeText(this, "打包成功", Toast.LENGTH_LONG).show()
+            }else {
+                Toast.makeText(this, "打包失败", Toast.LENGTH_LONG).show()
+            }
         })
         receiveRefresh.setColorSchemeResources(R.color.colorPrimary)
         refreshJobList()
