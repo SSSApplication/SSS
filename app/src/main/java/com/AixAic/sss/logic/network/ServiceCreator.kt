@@ -9,6 +9,7 @@ object ServiceCreator {
     val BASE_IMG = BASE_URL+"uploaded/img/"
     val BASE_IMG_SMALL = BASE_URL + "uploaded/img_small/"
     val BASE_FILE = BASE_URL + "uploaded/file/"
+    val BASE_PACKAGEFILE = BASE_URL + "packageFile/"
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL) //所有请求的根目录
         .addConverterFactory(GsonConverterFactory.create()) //解析数据使用的转换库 --Gson直接转成对象
