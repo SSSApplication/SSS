@@ -2,12 +2,15 @@ package com.AixAic.sss.ui.home
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -45,6 +48,12 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var banner: Banner<BannerDataBean, BannerImageAdapter<BannerDataBean>> = activity!!.findViewById(R.id.banner)
+        allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
+        noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        submittedBtn.setBackgroundResource(R.drawable.button_normal)
+        allSubmitBtn.setTextColor(Color.parseColor("#FFFFFF"))
+        submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
+        noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
         banner.setAdapter(object : BannerImageAdapter<BannerDataBean>(BannerDataBean.testData) {
             override fun onBindView(
                 holder: BannerImageHolder,
@@ -74,8 +83,11 @@ class HomeFragment : Fragment() {
         submitBtn.setOnClickListener {
             publishBtn.visibility = View.GONE
             allSubmitBtn.visibility = View.VISIBLE
+            allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
             noSubmitBtn.visibility = View.VISIBLE
+            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
             submittedBtn.visibility = View.VISIBLE
+            submittedBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.submitAll
             refreshJobList()
         }
@@ -86,17 +98,26 @@ class HomeFragment : Fragment() {
         }
 
         allSubmitBtn.setOnClickListener {
+            submittedBtn.setBackgroundResource(R.drawable.button_normal)
+            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.submitAll
+            allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
             refreshJobList()
         }
 
         noSubmitBtn.setOnClickListener {
+            allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+            submittedBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.noSubmit
+            noSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
             refreshJobList()
         }
 
         submittedBtn.setOnClickListener {
+            allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.submitted
+            submittedBtn.setBackgroundResource(R.drawable.button_pressed)
             refreshJobList()
         }
 

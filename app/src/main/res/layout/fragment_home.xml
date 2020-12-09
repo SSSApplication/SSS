@@ -22,6 +22,8 @@
             android:id="@+id/submitBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:background="#FBFAFA"
             android:text="提交"/>
 
         <Button
@@ -29,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:textSize="20sp"
+            android:background="#FBFAFA"
             android:text="接收"/>
 
 
@@ -48,18 +52,21 @@
 
         <Button
             android:id="@+id/allSubmitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="5dp"
             android:text="全部"/>
         <Button
             android:id="@+id/noSubmitBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="5dp"
             android:text="未提交"/>
         <Button
             android:id="@+id/submittedBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="5dp"
             android:text="已提交"/>
 
     </LinearLayout>
