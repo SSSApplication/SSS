@@ -25,6 +25,7 @@
             android:textSize="20sp"
             android:textColor="#00D9FF"
             android:background="#FBFAFA"
+            style="?android:attr/borderlessButtonStyle"
             android:text="提交"/>
 
         <Button
@@ -35,6 +36,7 @@
             android:textSize="20sp"
             android:textColor="#9FA2A3"
             android:background="#FBFAFA"
+            style="?android:attr/borderlessButtonStyle"
             android:text="接收"/>
 
 
@@ -49,26 +51,32 @@
             android:id="@+id/publishBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:textColor="#00D9FF"
+            android:textSize="18sp"
             android:visibility="gone"
-            android:text="发布"/>
+            android:text="发布+"/>
 
         <Button
             android:id="@+id/allSubmitBtn"
             android:layout_width="80dp"
             android:layout_height="37dp"
             android:layout_marginLeft="5dp"
+            style="?android:attr/borderlessButtonStyle"
             android:text="全部"/>
         <Button
             android:id="@+id/noSubmitBtn"
             android:layout_width="80dp"
             android:layout_height="37dp"
             android:layout_marginLeft="5dp"
+            style="?android:attr/borderlessButtonStyle"
             android:text="未提交"/>
         <Button
             android:id="@+id/submittedBtn"
             android:layout_width="80dp"
             android:layout_height="37dp"
             android:layout_marginLeft="5dp"
+            style="?android:attr/borderlessButtonStyle"
             android:text="已提交"/>
 
     </LinearLayout>
@@ -76,7 +84,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/jobRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
