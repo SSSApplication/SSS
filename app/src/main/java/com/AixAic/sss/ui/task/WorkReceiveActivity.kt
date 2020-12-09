@@ -3,9 +3,11 @@ package com.AixAic.sss.ui.task
 import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -28,6 +30,7 @@ class WorkReceiveActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_receive)
+        changeButtonStyle(allReceiveSubmitBtn)
         customDialog = CustomDialog(this, "疯狂打包中")
         if (viewModel.description.isEmpty()){
             viewModel.description = intent.getStringExtra("description") ?: ""
@@ -39,16 +42,19 @@ class WorkReceiveActivity : AppCompatActivity() {
 
         allReceiveSubmitBtn.setOnClickListener {
             viewModel.status = viewModel.submitAll
+            changeButtonStyle(allReceiveSubmitBtn)
             refreshJobList()
         }
 
         noSubmitReceiveBtn.setOnClickListener {
             viewModel.status = viewModel.noSubmit
+            changeButtonStyle(noSubmitReceiveBtn)
             refreshJobList()
         }
 
         submittedReceiveBtn.setOnClickListener {
             viewModel.status = viewModel.submitted
+            changeButtonStyle(submittedReceiveBtn)
             refreshJobList()
         }
 
@@ -143,5 +149,19 @@ class WorkReceiveActivity : AppCompatActivity() {
         intent.putExtra("filename", filename)
         intent.setPackage(packageName)
         sendBroadcast(intent)
+    }
+    private fun initButtonStyle(){
+        allReceiveSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        noSubmitReceiveBtn.setBackgroundResource(R.drawable.button_normal)
+        submittedReceiveBtn.setBackgroundResource(R.drawable.button_normal)
+        allReceiveSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+        noSubmitReceiveBtn.setTextColor(Color.parseColor("#00D9FF"))
+        submittedReceiveBtn.setTextColor(Color.parseColor("#00D9FF"))
+    }
+    private fun changeButtonStyle(button: Button) {
+        initButtonStyle()
+        //change
+        button.setBackgroundResource(R.drawable.button_pressed)
+        button.setTextColor(Color.parseColor("#FFFFFF"))
     }
 }

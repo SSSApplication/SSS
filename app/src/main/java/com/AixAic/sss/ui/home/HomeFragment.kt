@@ -169,16 +169,7 @@ class HomeFragment : Fragment() {
         viewModel.refreshJobList(viewModel.user.id)
         homeRefresh.isRefreshing = true
     }
-
-    fun initButtonStyle(){
-        allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
-        noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
-        submittedBtn.setBackgroundResource(R.drawable.button_normal)
-        allSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
-        submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
-        noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
-    }
-    fun initButtonStyles(){
+    private fun initButtonStyle(){
         //init
         allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
         noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
@@ -187,8 +178,8 @@ class HomeFragment : Fragment() {
         submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
         noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
     }
-    fun changeButtonStyle(button: Button) {
-        initButtonStyles()
+    private fun changeButtonStyle(button: Button) {
+        initButtonStyle()
         //change
         button.setBackgroundResource(R.drawable.button_pressed)
         button.setTextColor(Color.parseColor("#FFFFFF"))
