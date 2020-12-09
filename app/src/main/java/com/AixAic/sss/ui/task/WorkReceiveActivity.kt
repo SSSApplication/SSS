@@ -42,8 +42,7 @@ class WorkReceiveActivity : AppCompatActivity() {
             viewModel.stid = intent.getStringExtra("stid") ?: "0"
         }
         receive_return.setOnClickListener {
-            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
         allReceiveSubmitBtn.setOnClickListener {

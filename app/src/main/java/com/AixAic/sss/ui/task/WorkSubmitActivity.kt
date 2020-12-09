@@ -49,8 +49,7 @@ class WorkSubmitActivity : AppCompatActivity() {
         LogUtil.d("jid", "${viewModel.jid}")
 
         submit_return.setOnClickListener {
-            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
 //        照相上传图片

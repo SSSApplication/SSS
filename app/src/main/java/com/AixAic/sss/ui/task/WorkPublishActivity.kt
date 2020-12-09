@@ -62,8 +62,7 @@ class WorkPublishActivity : AppCompatActivity() {
         }
 
         publish_return.setOnClickListener {
-            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
     }
     inner class spinnerListener: AdapterView.OnItemSelectedListener{
