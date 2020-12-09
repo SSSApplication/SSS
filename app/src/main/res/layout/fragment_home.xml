@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textColor="#00D9FF"
             android:background="#FBFAFA"
             android:text="提交"/>
 
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:textSize="20sp"
+            android:textColor="#9FA2A3"
             android:background="#FBFAFA"
             android:text="接收"/>
 

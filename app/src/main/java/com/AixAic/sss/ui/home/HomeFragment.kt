@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.drawable.toDrawable
@@ -48,12 +49,7 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var banner: Banner<BannerDataBean, BannerImageAdapter<BannerDataBean>> = activity!!.findViewById(R.id.banner)
-        allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
-        noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
-        submittedBtn.setBackgroundResource(R.drawable.button_normal)
-        allSubmitBtn.setTextColor(Color.parseColor("#FFFFFF"))
-        submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
-        noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+        changeButtonStyle(allSubmitBtn)
         banner.setAdapter(object : BannerImageAdapter<BannerDataBean>(BannerDataBean.testData) {
             override fun onBindView(
                 holder: BannerImageHolder,
@@ -75,6 +71,8 @@ class HomeFragment : Fragment() {
                 allSubmitBtn.visibility = View.GONE
                 noSubmitBtn.visibility = View.GONE
                 submittedBtn.visibility = View.GONE
+                receiveBtn.setTextColor(Color.parseColor("#00D9FF"))
+                submitBtn.setTextColor(Color.parseColor("#9FA2A3"))
                 viewModel.status = viewModel.receive
                 refreshJobList()
             }
@@ -83,11 +81,11 @@ class HomeFragment : Fragment() {
         submitBtn.setOnClickListener {
             publishBtn.visibility = View.GONE
             allSubmitBtn.visibility = View.VISIBLE
-            allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
             noSubmitBtn.visibility = View.VISIBLE
-            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
             submittedBtn.visibility = View.VISIBLE
-            submittedBtn.setBackgroundResource(R.drawable.button_normal)
+            submitBtn.setTextColor(Color.parseColor("#00D9FF"))
+            receiveBtn.setTextColor(Color.parseColor("#9FA2A3"))
+            changeButtonStyle(allSubmitBtn)
             viewModel.status = viewModel.submitAll
             refreshJobList()
         }
@@ -98,26 +96,20 @@ class HomeFragment : Fragment() {
         }
 
         allSubmitBtn.setOnClickListener {
-            submittedBtn.setBackgroundResource(R.drawable.button_normal)
-            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+            changeButtonStyle(allSubmitBtn)
             viewModel.status = viewModel.submitAll
-            allSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
             refreshJobList()
         }
 
         noSubmitBtn.setOnClickListener {
-            allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
-            submittedBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.noSubmit
-            noSubmitBtn.setBackgroundResource(R.drawable.button_pressed)
+            changeButtonStyle(noSubmitBtn)
             refreshJobList()
         }
 
         submittedBtn.setOnClickListener {
-            allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
-            noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
             viewModel.status = viewModel.submitted
-            submittedBtn.setBackgroundResource(R.drawable.button_pressed)
+            changeButtonStyle(submittedBtn)
             refreshJobList()
         }
 
@@ -176,6 +168,30 @@ class HomeFragment : Fragment() {
     fun refreshJobList() {
         viewModel.refreshJobList(viewModel.user.id)
         homeRefresh.isRefreshing = true
+    }
+
+    fun initButtonStyle(){
+        allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        submittedBtn.setBackgroundResource(R.drawable.button_normal)
+        allSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+        submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
+        noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+    }
+    fun initButtonStyles(){
+        //init
+        allSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        noSubmitBtn.setBackgroundResource(R.drawable.button_normal)
+        submittedBtn.setBackgroundResource(R.drawable.button_normal)
+        allSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+        submittedBtn.setTextColor(Color.parseColor("#00D9FF"))
+        noSubmitBtn.setTextColor(Color.parseColor("#00D9FF"))
+    }
+    fun changeButtonStyle(button: Button) {
+        initButtonStyles()
+        //change
+        button.setBackgroundResource(R.drawable.button_pressed)
+        button.setTextColor(Color.parseColor("#FFFFFF"))
     }
 }
 
