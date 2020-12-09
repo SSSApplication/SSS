@@ -25,6 +25,7 @@ class WorkPublishActivity : AppCompatActivity() {
 
     val viewModel by lazy { ViewModelProviders.of(this).get(WorkPublishViewModel::class.java) }
     override fun onCreate(savedInstanceState: Bundle?) {
+        overridePendingTransition(R.anim.rightin_enter,R.anim.rightin_exit)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_publish)
         //文件类型下拉框
@@ -89,5 +90,10 @@ class WorkPublishActivity : AppCompatActivity() {
             LogUtil.d("workPublish", "什么都没点")
         }
 
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.rightout_enter,R.anim.rightout_exit)
     }
 }
