@@ -48,6 +48,11 @@ class WorkSubmitActivity : AppCompatActivity() {
         viewModel.listFile(viewModel.jid.toInt())
         LogUtil.d("jid", "${viewModel.jid}")
 
+        submit_return.setOnClickListener {
+            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
+            startActivity(intent)
+        }
+
 //        照相上传图片
         add_pic_from_camera.setOnClickListener {
             //创建File对象，用于存储拍照后的照片

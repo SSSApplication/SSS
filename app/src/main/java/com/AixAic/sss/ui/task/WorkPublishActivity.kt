@@ -61,6 +61,10 @@ class WorkPublishActivity : AppCompatActivity() {
             })
         }
 
+        publish_return.setOnClickListener {
+            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
+            startActivity(intent)
+        }
     }
     inner class spinnerListener: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

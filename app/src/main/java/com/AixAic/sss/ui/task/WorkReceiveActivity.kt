@@ -14,8 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
+import com.AixAic.sss.SSSApplication
 import com.AixAic.sss.logic.model.Job
 import com.AixAic.sss.logic.network.ServiceCreator
+import com.AixAic.sss.ui.BottomActivity
 import com.AixAic.sss.util.LogUtil
 import kotlinx.android.synthetic.main.activity_work_receive.*
 import kotlinx.android.synthetic.main.activity_work_submit.description
@@ -38,6 +40,10 @@ class WorkReceiveActivity : AppCompatActivity() {
         }
         if (viewModel.stid.isEmpty()){
             viewModel.stid = intent.getStringExtra("stid") ?: "0"
+        }
+        receive_return.setOnClickListener {
+            val intent = Intent(SSSApplication.context, BottomActivity::class.java)
+            startActivity(intent)
         }
 
         allReceiveSubmitBtn.setOnClickListener {
