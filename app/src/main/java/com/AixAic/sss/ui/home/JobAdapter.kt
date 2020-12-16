@@ -32,6 +32,7 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
             val job = jobList[position]
             val intent = Intent(parent.context, WorkSubmitActivity::class.java).apply {
                 putExtra("description", job.stask.description)
+                putExtra("fileType", job.stask.filetype)
                 putExtra("jid", "${job.id}")
             }
             fragment.startActivity(intent)
@@ -42,6 +43,7 @@ class JobAdapter(private val fragment: HomeFragment,val jobList: List<Job>) : Re
             val job = jobList[position]
             val intent = Intent(parent.context, WorkSubmitActivity::class.java).apply {
                 putExtra("description", job.stask.description)
+                putExtra("fileType", job.stask.filetype)
                 putExtra("jid", "${job.id}")
             }
             fragment.startActivity(intent)

@@ -34,11 +34,12 @@ class WorkSubmitActivity : AppCompatActivity() {
     private lateinit var accessoryAdapter: AccessoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        overridePendingTransition(R.anim.rightin_enter,R.anim.rightin_exit)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_submit)
         customDialog = CustomDialog(this)
         if (viewModel.description.isEmpty()){
-            viewModel.description = intent.getStringExtra("description") ?: ""
+            viewModel.description = (intent.getStringExtra("description") ?: "") + "\n" + "提交格式："+(intent.getStringExtra("fileType") ?: "")
             description.text = viewModel.description
         }
         if (viewModel.jid.isEmpty()){
@@ -236,5 +237,10 @@ class WorkSubmitActivity : AppCompatActivity() {
             if (sfile.type == "image/*") viewModel.picList.add(sfile)
             else viewModel.accList.add(sfile)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.rightout_enter,R.anim.rightout_exit)
     }
 }

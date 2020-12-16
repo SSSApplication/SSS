@@ -30,12 +30,13 @@ class WorkReceiveActivity : AppCompatActivity() {
     private lateinit var workReceiveAdapter: WorkReceiveAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        overridePendingTransition(R.anim.rightin_enter,R.anim.rightin_exit)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_receive)
         changeButtonStyle(allReceiveSubmitBtn)
         customDialog = CustomDialog(this, "疯狂打包中")
         if (viewModel.description.isEmpty()){
-            viewModel.description = intent.getStringExtra("description") ?: ""
+            viewModel.description = (intent.getStringExtra("description") ?: "") + "\n"+ "提交格式：" +(intent.getStringExtra("fileType") ?: "")
             description.text = viewModel.description
         }
         if (viewModel.stid.isEmpty()){
@@ -103,6 +104,11 @@ class WorkReceiveActivity : AppCompatActivity() {
             refreshJobList()
         }
 
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.rightout_enter,R.anim.rightout_exit)
     }
 
     fun getJobList(jobList: List<Job>) {

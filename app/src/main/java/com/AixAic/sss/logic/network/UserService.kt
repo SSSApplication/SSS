@@ -4,9 +4,7 @@ import com.AixAic.sss.logic.model.LoginData
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.logic.model.UserResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
     //登录
@@ -15,5 +13,8 @@ interface UserService {
 
     @GET("users/1")
     fun get(): Call<User>
+
+    @PUT("users/{id}")
+    fun update(@Body password: String, @Path("id") id: Int): Call<UserResponse>
 
 }

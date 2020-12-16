@@ -7,16 +7,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#00D9FF">
 
         <Button
             android:id="@+id/publish_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#F3F5F5"
+            android:background="#00D9FF"
             style="?android:attr/borderlessButtonStyle"
             android:layout_gravity="center"
             android:textSize="24sp"
+            android:textColor="#FFFFFF"
             android:text="@string/back"/>
 
         <TextView
@@ -26,21 +28,23 @@
             android:gravity="center"
             android:layout_weight="1"
             android:textSize="24sp"
+            android:textColor="#FFFFFF"
             android:text="任务发布"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/borderlessButtonStyle"
-            android:background="#F3F5F5"/>
+            android:background="#00D9FF"/>
 
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"
         android:textSize="20sp"
         android:text="任务标题："/>
 
@@ -48,28 +52,34 @@
         android:id="@+id/titleEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:hint="请输入"
         android:background="#FFFFFF" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
+        android:background="#FFFFFF"
         android:text="任务要求："/>
 
     <EditText
         android:id="@+id/descriptionEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:hint="请输入"
         android:background="#FFFFFF" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
+        android:background="#FFFFFF"
         android:text="提交格式："/>
 
         <Spinner
@@ -79,11 +89,12 @@
             android:background="#FFFFFF"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
+        android:background="#FFFFFF"
         android:text="发布到："/>
 
     <Spinner

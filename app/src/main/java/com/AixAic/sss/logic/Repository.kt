@@ -29,6 +29,18 @@ object Repository {
         }
     }
 
+    fun update(password: String, id: Int) = fire(Dispatchers.IO) {
+        val userResponse = SSSNetwork.update(password, id)
+        if (userResponse.status == "ok") { //根据状态来处理
+            LogUtil.d("修改密码模块", "修改成功，用户名：${userResponse.user.name}")
+            val user = userResponse.user
+            Result.success(user)
+        } else {
+            LogUtil.d("修改密码模块", "修改失败，${userResponse.status}")
+            Result.failure(RuntimeException("response status is ${userResponse.status}"))
+        }
+    }
+
 //上传文件
     fun upload(body: RequestBody) = fire(Dispatchers.IO) {
         val generalResponse = SSSNetwork.upload(body)

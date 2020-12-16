@@ -5,15 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
 import com.AixAic.sss.logic.Repository
-import com.AixAic.sss.logic.model.Mine
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.ui.login.LoginActivity
 import com.AixAic.sss.ui.task.WorkPublishActivity
@@ -23,8 +19,6 @@ import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class NotificationsFragment : Fragment() {
 
-    private val mineList = ArrayList<Mine>()
-
     val viewModel by lazy { ViewModelProviders.of(this).get(NotificationsViewModel::class.java) }
 
     override fun onCreateView(
@@ -32,12 +26,7 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        viewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        return inflater.inflate(R.layout.fragment_notifications, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -64,16 +53,17 @@ class NotificationsFragment : Fragment() {
         swipeRefresh.setOnRefreshListener {
             refreshWeather()
         }
-        initMine()
-        val layoutManager = LinearLayoutManager(activity)
-        mineRecycler.layoutManager = layoutManager
-        val adapter = MineAdapter(this, mineList)
-        mineRecycler.adapter = adapter
 
         headPicture.setOnClickListener{
             val intent = Intent(context,WorkPublishActivity::class.java)
             startActivity(intent)
         }
+
+        setting.setOnClickListener {
+            val intent = Intent(context,SettingActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun refreshWeather() {
@@ -89,11 +79,5 @@ class NotificationsFragment : Fragment() {
         organization.text = user.organizationsList[0].organization.name
         if (viewModel.userName.isEmpty()) viewModel.userName = user.sno
         if (viewModel.userPassword.isEmpty()) viewModel.userPassword = user.password
-    }
-
-    private fun initMine() {
-        mineList.add(Mine(R.drawable.ic_homework, "我的作业"))
-        mineList.add(Mine(R.drawable.ic_mission, "待办事项"))
-        mineList.add(Mine(R.drawable.ic_setting, "设置"))
     }
 }

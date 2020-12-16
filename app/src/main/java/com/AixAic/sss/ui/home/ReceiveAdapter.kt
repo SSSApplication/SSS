@@ -29,6 +29,7 @@ class ReceiveAdapter(private val fragment: HomeFragment,val jobList: List<Job>) 
             val job = jobList[position]
             val intent = Intent(parent.context, WorkReceiveActivity::class.java).apply {
                 putExtra("description", job.stask.description)
+                putExtra("fileType", job.stask.filetype)
                 putExtra("stid", "${job.stid}")
             }
             fragment.startActivity(intent)
