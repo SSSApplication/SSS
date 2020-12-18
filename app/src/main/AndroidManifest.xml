@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.notifications.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.notifications.AboutActivity"></activity>
+        <activity android:name=".ui.notifications.ChangePasswordActivity" />
         <activity android:name=".ui.notifications.SettingActivity" />
         <activity
             android:name=".ui.BottomActivity"

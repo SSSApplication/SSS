@@ -1,8 +1,10 @@
 package com.AixAic.sss.logic.network
 
+import com.AixAic.sss.logic.model.GeneralResponse
 import com.AixAic.sss.logic.model.LoginData
 import com.AixAic.sss.logic.model.User
 import com.AixAic.sss.logic.model.UserResponse
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,5 +18,8 @@ interface UserService {
 
     @PUT("users/{id}")
     fun update(@Body password: String, @Path("id") id: Int): Call<UserResponse>
+
+    @POST("userHead")
+    fun uploadImg(@Body body: RequestBody): Call<GeneralResponse>
 
 }

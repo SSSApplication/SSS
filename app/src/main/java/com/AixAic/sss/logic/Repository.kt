@@ -41,6 +41,17 @@ object Repository {
         }
     }
 
+    fun uploadImg(body: RequestBody) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.uploadImg(body)
+        if (generalResponse.status == "ok") {
+            LogUtil.d("修改头像模块", "修改成功，用户id：${Repository.getUser().id}")
+            Result.success(generalResponse)
+        } else {
+            LogUtil.d("修改头像模块", "上传失败")
+            Result.failure(RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
+
 //上传文件
     fun upload(body: RequestBody) = fire(Dispatchers.IO) {
         val generalResponse = SSSNetwork.upload(body)

@@ -22,6 +22,7 @@ object SSSNetwork {
     private val userService = ServiceCreator.create<UserService>()
     suspend fun login(loginData: LoginData) = userService.login(loginData).await()
     suspend fun update(password: String, id: Int) = userService.update(password, id).await()
+    suspend fun uploadImg(body: RequestBody) = userService.uploadImg(body).await()
 
 
     //执行请求

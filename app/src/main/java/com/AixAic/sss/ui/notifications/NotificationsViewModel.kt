@@ -7,9 +7,20 @@ import androidx.lifecycle.ViewModel
 import com.AixAic.sss.logic.Repository
 import com.AixAic.sss.logic.model.LoginData
 import com.AixAic.sss.logic.model.User
+import okhttp3.RequestBody
 
 class NotificationsViewModel : ViewModel() {
 
+    val fromAlbum = 1
+    private val fileLiveData = MutableLiveData<RequestBody>()
+
+    val uploadImgLiveData = Transformations.switchMap(fileLiveData){body ->
+        Repository.uploadImg(body)
+    }
+
+    fun uploadImg(body: RequestBody){
+        fileLiveData.value = body
+    }
     private val userLiveData =MutableLiveData<LoginData>()
 
     var userName = ""

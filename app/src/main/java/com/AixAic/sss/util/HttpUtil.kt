@@ -13,6 +13,15 @@ object HttpUtil {
             .build()
         return body
     }
+
+    fun userUploadBody(file: File, id: String): RequestBody {
+        val body = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart("id", id)
+            .addFormDataPart("file", file.name, RequestBody.create(MediaType.parse("image/*"), file))
+            .build()
+        return body
+    }
+
     fun fileUploadBody(file: File, jid: String): RequestBody {
         val body = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart("jid", jid)
