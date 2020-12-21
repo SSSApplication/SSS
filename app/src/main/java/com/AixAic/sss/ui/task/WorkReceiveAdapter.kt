@@ -18,13 +18,18 @@ class WorkReceiveAdapter(private val activity: WorkReceiveActivity, val jobList:
         val submitStatus: TextView = view.findViewById(R.id.submitStatus)
         val askToSubmit: Button = view.findViewById(R.id.askToSubmit)
         val submitted: Button = view.findViewById(R.id.receiveSubmitted)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.work_receive_item, parent, false)
-        return ViewHolder(view)
+        val holder = ViewHolder(view)
+        holder.askToSubmit.setOnClickListener {
+            val position = holder.adapterPosition
+            val job = jobList[position]
+            activity.viewModel.remind(job.id)
+        }
+        return holder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

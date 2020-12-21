@@ -18,6 +18,8 @@ class WorkReceiveViewModel : ViewModel(){
     val user = Repository.getUser()
     private val receiveLiveData = MutableLiveData<Int>()
     private val packageLiveData = MutableLiveData<Int>()
+    private val remindLiveData = MutableLiveData<Int>()
+    private val remindAllLiveData = MutableLiveData<Int>()
     var jobList = ArrayList<Job>()
 
     val receiveResultLiveData = Transformations.switchMap(receiveLiveData) {stid ->
@@ -28,12 +30,28 @@ class WorkReceiveViewModel : ViewModel(){
         Repository.packageFile(id)
     }
 
+    val remindResultLiveData = Transformations.switchMap(remindLiveData) {id ->
+        Repository.remind(id)
+    }
+
+    val remindAllResultLiveData = Transformations.switchMap(remindAllLiveData) {stid ->
+        Repository.remindAll(stid)
+    }
+
     fun refreshJobList(stid: Int) {
         receiveLiveData.value = stid
     }
 
     fun packageFile(id: Int) {
         packageLiveData.value = id
+    }
+
+    fun remind(id: Int) {
+        remindLiveData.value = id
+    }
+
+    fun remindAll(stid: Int) {
+        remindAllLiveData.value = stid
     }
 
 }

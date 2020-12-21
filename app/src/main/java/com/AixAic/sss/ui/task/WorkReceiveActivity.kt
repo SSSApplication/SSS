@@ -69,6 +69,10 @@ class WorkReceiveActivity : AppCompatActivity() {
             customDialog.show()
         }
 
+        remindAll.setOnClickListener {
+            viewModel.remindAll(viewModel.stid.toInt())
+        }
+
         viewModel.receiveResultLiveData.observe(this, Observer { result ->
             val jobResponse = result.getOrNull()
             if (jobResponse != null) {
@@ -98,6 +102,29 @@ class WorkReceiveActivity : AppCompatActivity() {
                 Toast.makeText(this, "打包失败", Toast.LENGTH_LONG).show()
             }
         })
+
+        viewModel.remindResultLiveData.observe(this, { result ->
+            val generalResponse = result.getOrNull()
+            if (generalResponse != null) {
+                if (generalResponse.status == "ok") {
+                    Toast.makeText(this, "催交成功", Toast.LENGTH_LONG).show()
+                }
+            }else {
+                Toast.makeText(this, "催交失败", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        viewModel.remindAllResultLiveData.observe(this, { result ->
+            val generalResponse = result.getOrNull()
+            if (generalResponse != null) {
+                if (generalResponse.status == "ok") {
+                    Toast.makeText(this, "一键催交成功", Toast.LENGTH_LONG).show()
+                }
+            }else {
+                Toast.makeText(this, "一键催交失败", Toast.LENGTH_LONG).show()
+            }
+        })
+
         receiveRefresh.setColorSchemeResources(R.color.colorPrimary)
         refreshJobList()
         receiveRefresh.setOnRefreshListener {

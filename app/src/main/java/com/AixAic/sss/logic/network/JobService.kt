@@ -17,4 +17,13 @@ interface JobService {
 //    提交
     @PUT("job/{id}")
     fun submit(@Path("id") id: Int): Call<GeneralResponse>
+
+    @PUT("remind/{id}")
+    fun remind(@Path("id") id: Int): Call<GeneralResponse>
+
+    @PUT("remindAll/{stid}")
+    fun remindAll(@Path("stid") stid: Int): Call<GeneralResponse>
+
+    @PUT("read/{id}")
+    fun read(@Path("id") id: Int): Call<GeneralResponse>
 }

@@ -144,6 +144,42 @@ object Repository {
         }
     }
 
+    //催交
+    fun remind(id: Int) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.remind(id)
+        if (generalResponse.status == "ok"){
+            LogUtil.d("催交模块", "催交成功")
+            Result.success(generalResponse)
+        } else {
+            LogUtil.d("催交模块", "催交失败${generalResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
+
+    //一键催交
+    fun remindAll(sid: Int) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.remindAll(sid)
+        if (generalResponse.status == "ok"){
+            LogUtil.d("一键催交模块", "催交成功")
+            Result.success(generalResponse)
+        } else {
+            LogUtil.d("一键催交模块", "催交失败${generalResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
+
+    //已读
+    fun read(id: Int) = fire(Dispatchers.IO) {
+        val generalResponse = SSSNetwork.read(id)
+        if (generalResponse.status == "ok"){
+            LogUtil.d("已读模块", "读取成功")
+            Result.success(generalResponse)
+        } else {
+            LogUtil.d("已读模块", "读取失败${generalResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${generalResponse.status}"))
+        }
+    }
+
     private fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) = liveData<Result<T>>(context) {
         val result = try {
             block()
