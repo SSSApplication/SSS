@@ -44,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:background="#FFFFFF">
+        android:clickable="true"
+        android:background="@drawable/click_select">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
-        android:background="#FFFFFF">
+        android:clickable="true"
+        android:background="@drawable/click_select">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,7 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="1dp"
-        android:background="#FFFFFF">
+        android:clickable="true"
+        android:background="@drawable/click_select">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,7 +116,8 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             style="@style/text_style"
-            android:background="#FFFFFF"
+            android:clickable="true"
+            android:background="@drawable/click_select"
             android:text="切换账号"/>
 
         <TextView
@@ -123,7 +127,8 @@
             android:gravity="center"
             android:layout_marginTop="10dp"
             style="@style/text_style"
-            android:background="#FFFFFF"
+            android:clickable="true"
+            android:background="@drawable/click_select"
             android:text="退出"/>
 
 </LinearLayout>

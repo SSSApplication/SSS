@@ -66,6 +66,11 @@ class SettingActivity : AppCompatActivity() {
             val intent = Intent(context,ChangePasswordActivity::class.java)
             startActivity(intent)
         }
+
+        setting_about.setOnClickListener {
+            val intent = Intent(context, AboutActivity::class.java)
+            startActivity(intent)
+        }
         setting_change_user.setOnClickListener {
             val intent = Intent(context,LoginActivity::class.java)
             startActivity(intent)
