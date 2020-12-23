@@ -17,6 +17,7 @@ class WorkSubmitViewModel : ViewModel() {
     lateinit var outputImage: File
     var description = ""
     var jid = ""
+    var remind = ""
     var sfileList = ArrayList<Sfile>()
     var picList = ArrayList<Sfile>()
     var accList = ArrayList<Sfile>()
@@ -24,6 +25,7 @@ class WorkSubmitViewModel : ViewModel() {
     private val jidLiveData = MutableLiveData<Int>()
     private val idLiveData = MutableLiveData<Int>()
     private val jobJidLiveData = MutableLiveData<Int>()
+    private val readLiveDate = MutableLiveData<Int>()
 
     val uploadLiveData = Transformations.switchMap(fileLiveData){body ->
         Repository.upload(body)
@@ -39,6 +41,10 @@ class WorkSubmitViewModel : ViewModel() {
 
     val submitJobLiveData = Transformations.switchMap(jobJidLiveData){ id ->
         Repository.submit(id)
+    }
+
+    val readJobLiveData = Transformations.switchMap(readLiveDate){ id ->
+        Repository.read(id)
     }
 
     //外部调用的接口
@@ -58,5 +64,8 @@ class WorkSubmitViewModel : ViewModel() {
         jobJidLiveData.value = id
     }
 
+    fun readJob(id: Int){
+        readLiveDate.value = id
+    }
 
 }

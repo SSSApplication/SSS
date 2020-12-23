@@ -168,6 +168,18 @@ object Repository {
         }
     }
 
+//    获取用户的催交内容
+    fun getRemindList(uid: Int) = fire(Dispatchers.IO) {
+        val jobResponse = SSSNetwork.getRemindList(uid)
+        if (jobResponse.status == "ok"){
+            LogUtil.d("获取催交列表模块", "获取成功")
+            Result.success(jobResponse)
+        } else {
+            LogUtil.d("获取催交列表模块", "获取失败${jobResponse.status}")
+            Result.failure(java.lang.RuntimeException("response status is ${jobResponse.status}"))
+        }
+    }
+
     //已读
     fun read(id: Int) = fire(Dispatchers.IO) {
         val generalResponse = SSSNetwork.read(id)

@@ -26,4 +26,7 @@ interface JobService {
 
     @PUT("read/{id}")
     fun read(@Path("id") id: Int): Call<GeneralResponse>
+//    获取用户的提醒
+    @GET("remind/{uid}")
+    fun getRemindList(@Path("uid") uid: Int): Call<JobResponse>
 }
