@@ -47,6 +47,7 @@ object SSSNetwork {
     suspend fun remind(id: Int) = jobService.remind(id).await()
     suspend fun remindAll(stid: Int) = jobService.remindAll(stid).await()
     suspend fun read(id: Int) = jobService.read(id).await()
+    suspend fun getRemindList(uid: Int) = jobService.getRemindList(uid).await()
 
     //协程suspend
     private suspend fun <T> Call<T>.await(): T {

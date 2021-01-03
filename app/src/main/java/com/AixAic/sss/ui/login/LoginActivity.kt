@@ -19,6 +19,7 @@ import com.AixAic.sss.logic.network.ServiceCreator
 import com.AixAic.sss.logic.network.UserService
 import com.AixAic.sss.ui.BottomActivity
 import com.AixAic.sss.util.LogUtil
+import com.AixAic.sss.util.ToastUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             userService.login(loginData).enqueue(object : Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
                     val userResponse = response.body()
-                    if (userResponse != null && userResponse.status.equals("ok")){
+                    if (userResponse != null && userResponse.status == "ok"){
                         val user = userResponse.user
                         LogUtil.d("Login", userResponse.status)
                         LogUtil.d("Login", user.name)
@@ -63,11 +64,13 @@ class LoginActivity : AppCompatActivity() {
                         Repository.saveUser(user)
                         val intent = Intent(context, BottomActivity::class.java)
                         startActivity(intent)
-                    }else
-                        Toast.makeText(SSSApplication.context, "账号或密码错误", Toast.LENGTH_SHORT).show()
+                    }else{
+                        ToastUtil.show("账号或密码错误")
+                    }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    ToastUtil.show("账号或密码错误")
                     t.printStackTrace()
                 }
             })

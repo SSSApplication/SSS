@@ -38,13 +38,22 @@ class WorkSubmitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_work_submit)
         customDialog = CustomDialog(this)
+
         if (viewModel.description.isEmpty()){
             viewModel.description = (intent.getStringExtra("description") ?: "") + "\n" + "提交格式："+(intent.getStringExtra("fileType") ?: "")
             description.text = viewModel.description
         }
         if (viewModel.jid.isEmpty()){
             viewModel.jid = intent.getStringExtra("jid") ?: "0"
-
+        }
+        if (viewModel.remind.isEmpty()){
+            viewModel.remind = intent.getStringExtra("remind") ?: "0"
+        }
+        viewModel.description = (intent.getStringExtra("description") ?: "") + "\n" + "提交格式："+(intent.getStringExtra("fileType") ?: "")
+        viewModel.jid = intent.getStringExtra("jid") ?: "0"
+        viewModel.remind = intent.getStringExtra("remind") ?: "0"
+        if (viewModel.remind == "1"){
+            viewModel.readJob(viewModel.jid.toInt())
         }
         viewModel.listFile(viewModel.jid.toInt())
         LogUtil.d("jid", "${viewModel.jid}")
@@ -192,6 +201,14 @@ class WorkSubmitActivity : AppCompatActivity() {
             }else {
                 LogUtil.d("提交作业失败","失败")
                 ToastUtil.show("提交作业失败")
+            }
+        })
+        viewModel.readJobLiveData.observe(this, {result ->
+            val generalResponse = result.getOrNull()
+            if (generalResponse != null && generalResponse.status == "ok"){
+                LogUtil.d("已读成功","已读成功")
+            }else {
+                LogUtil.d("已读","失败")
             }
         })
     }
