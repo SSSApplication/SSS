@@ -24,6 +24,7 @@ class BottomActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
         //        创建workManager
+        WorkManager.getInstance(SSSApplication.context).cancelAllWork()
         val request = PeriodicWorkRequest.Builder(SimpleWorker::class.java, 15, TimeUnit.MINUTES).build()
         WorkManager.getInstance(SSSApplication.context).enqueue(request)
     }
