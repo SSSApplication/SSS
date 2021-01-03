@@ -20,6 +20,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.AixAic.sss.R
 import com.AixAic.sss.SSSApplication
 import com.AixAic.sss.logic.Repository
@@ -43,173 +44,31 @@ import java.io.File
 import java.net.URL
 
 class DashboardFragment : Fragment() {
-
-    val takePhoto = 1
-    val fromAlbum = 2
-    lateinit var imageUri: Uri
-    lateinit var outputImage: File
+    private val dynamicList = ArrayList<Dynamic>()
 
     val viewModel by lazy { ViewModelProviders.of(this).get(DashboardViewModel::class.java)}
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        viewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        test.setOnClickListener {
-            val loginData = LoginData("1777000074", "888888")
-            val job = Job()
-            val scope = CoroutineScope(job)
-            scope.launch {
-                Repository.login(loginData)
-            }
-            job.cancel()
-        }
-        Glide.with(SSSApplication.context).load("http://10.0.2.2/uploaded/img_small/1606982391209IMG_20201123_131651.jpg").into(imageView)
-        takePhotoBtn.setOnClickListener {
-            //创建File对象，用于存储拍照后的照片
-            outputImage = File(SSSApplication.context.externalCacheDir, "output_image.jpg")
-            if (outputImage.exists()){
-                outputImage.delete()
-            }
-            outputImage.createNewFile()
-            imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                FileProvider.getUriForFile(SSSApplication.context, "com.AixAic.sss.fileprovider", outputImage)
-            }else{
-                Uri.fromFile(outputImage)
-            }
-
-            //启动相机服务
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
-            intent.putExtra("imageUri", "$imageUri")
-            LogUtil.d("imageUri", "$imageUri")
-            startActivityForResult(intent, takePhoto)
-        }
-        fromAlbumBtn.setOnClickListener {
-            //申请读写文件的权限
-            PermissionX.request(
-                activity!!,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) { allGranted, deniedList ->
-                if (allGranted) {
-                    Toast.makeText(
-                        SSSApplication.context,
-                        "All permissions are granted",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Toast.makeText(
-                        SSSApplication.context,
-                        "You denied $deniedList",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            //打开文件选择器
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            //指定只显示图片
-            intent.type = "image/*"
-            startActivityForResult(intent, fromAlbum)
-        }
+        initDynamic()
+        val layoutManager = LinearLayoutManager(activity)
+        dynamicRecycler.layoutManager = layoutManager
+        val adapter = DynamicAdapter(dynamicList)
+        dynamicRecycler.adapter = adapter
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            takePhoto -> {
-                LogUtil.d("上传成功", "${outputImage.totalSpace}")
-                val body = HttpUtil.imageUploadBody(outputImage, "1")
-                val uploadService = ServiceCreator.create<SfileService>()
-                uploadService.upload(body).enqueue(object : Callback<GeneralResponse> {
-                    override fun onResponse(call: Call<GeneralResponse>, response: Response<GeneralResponse>) {
-                        val userResponse = response.body()
-                        if (userResponse != null){
-                            LogUtil.d("上传成功", "上传成功")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<GeneralResponse>, t: Throwable) {
-                        LogUtil.d("上传成功", "上传成功个鬼")
-                        t.printStackTrace()
-                    }
-                })
-                LogUtil.d("上传文件1", "${data?.data.toString()}")
-                if (resultCode == Activity.RESULT_OK) {
-                    //将拍摄的照片显示出来
-                    val bitmap = BitmapFactory.decodeStream(SSSApplication.context.contentResolver.openInputStream(imageUri))
-                    imageView.setImageBitmap(rotateIfRequired(bitmap))
-                }
-            }
-            fromAlbum -> {
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    LogUtil.d("上传文件", "${data.data.toString()}")
-
-                    val file = FileUtil.uri2file(SSSApplication.context, data.data!!)
-                    LogUtil.d("上传文件", " ${file.totalSpace}")
-                    val body = HttpUtil.imageUploadBody(file, "1")
-                    val uploadService = ServiceCreator.create<SfileService>()
-                    uploadService.upload(body).enqueue(object : Callback<GeneralResponse> {
-                        override fun onResponse(call: Call<GeneralResponse>, response: Response<GeneralResponse>) {
-                            val userResponse = response.body()
-                            if (userResponse != null){
-                                LogUtil.d("上传成功", "上传成功")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<GeneralResponse>, t: Throwable) {
-                            LogUtil.d("上传成功", "上传成功个鬼")
-                            t.printStackTrace()
-                        }
-                    })
-
-                    data.data?.let {uri ->
-                        //将图片显示
-                        val bitmap = getBitmapFromUri(uri)
-                        imageView.setImageBitmap(bitmap)
-                    }
-                }
-                viewModel.testUploadnewLiveData.observe(this, {result ->
-                    val an = result.getOrNull()
-                    if (an != null){
-                        LogUtil.d("上传文件","成功")
-                    }else {
-                        LogUtil.d("上传文件","失败")
-                    }
-                })
-            }
-        }
-    }
-    private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
-        val exif = ExifInterface(outputImage.path)
-        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        return when (orientation) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
-            ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180)
-            ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(bitmap, 270)
-            else -> bitmap
-        }
-    }
-    private fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap {
-        val matrix = Matrix()
-        matrix.postRotate(degree.toFloat())
-        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-        bitmap.recycle() //将不需要的Bitmap对象回收
-        return rotatedBitmap
-    }
-    private fun getBitmapFromUri(uri: Uri) = SSSApplication.context.contentResolver.openFileDescriptor(uri, "r")?.use {
-        BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
+    private fun initDynamic() {
+        dynamicList.add(Dynamic("成先杰", "借用他人的大脑智慧，观察他人的战略布局，学习他人的思维方式，拎重点，用以指导自己的投资实践"))
+        dynamicList.add(Dynamic("谢小雪", "感谢青年大学习让我体会到五分钟的漫长！"))
+        dynamicList.add(Dynamic("李华", "我今天下午坐在马路边把学习强国给刷完了。"))
+        dynamicList.add(Dynamic("成先杰", "图书馆人多的时候就很温暖，果然还是要大家一起学习"))
+        dynamicList.add(Dynamic("李华", "有没有好的英语学习软件或者背单词软件推荐啊？？？"))
+        dynamicList.add(Dynamic("李华", "想学习修图批图美图，上色润色的我可以带你们一下，最近开了直播课，无偿的，有无经验都行。"))
+        dynamicList.add(Dynamic("李华", "我今天下午坐在马路边把学习强国给刷完了。"))
     }
 }
